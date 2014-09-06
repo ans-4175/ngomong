@@ -150,18 +150,13 @@ a:hover {
 }
 
 .panelmenu{
-	padding: 10px;
+	padding: 7px;
 }
 
-.panelBahasa{
-	padding: 5px 0;
+.contain-bahasa-dialek{
 	overflow-y: auto;
+	overflow-x: hidden;
 	height: 120px;
-}
-
-.panelBahasa li{
-	margin: 5px 0;
-	cursor: pointer;
 }
 
 .panelDialek{

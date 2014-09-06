@@ -28,11 +28,13 @@
 					<input type="text" class="form-control" placeholder="Search">
 				</div-->
 				<select class="form-control" id="selProvinsi">
-				  <option>Jawa Barat</option>
-				  <option>Jawa Tengah</option>
-				  <option>Jawa Timur</option>
+				  <option>Semua Provinsi</option>
 				  <option>Banten</option>
 				  <option>Jakarta</option>
+				  <option>Jawa Barat</option>
+				  <option>Jawa Tengah</option>
+				  <option>Yogyakarta</option>
+				  <option>Jawa Timur</option>
 				</select>
 				<h3>Kondisi :</h3>
 			    <div class="radio">
@@ -49,33 +51,75 @@
 				</div>
 				<div class="radio">
 				  <label>
-				    <input type="radio" name="optionsRadios" id="optRad2" value="opt2">
+				    <input type="radio" name="optionsRadios" id="optRad3" value="opt3">
 				    Aktif (Non Punah)
 				  </label>
 				</div>
+				<button type="button" class="btn btn-primary" id="btnSeleksi">Cari !</button>
 			  </div>
 			</div>
 			<div class="panel panel-default">
 			  <div class="panel-heading pointer" onclick="$('#bodyBahasa').slideToggle()">Bahasa</div>
 			  <div class="panel-body panelmenu" id="bodyBahasa">
-			    <ul class="panelBahasa">
-			    	<li>Bahasa 1</li>
-			    	<li>Bahasa 2</li>
-			    	<li>Bahasa 3</li>
-			    </ul>
+			    <div class="contain-bahasa-dialek">
+				    <div class="checkbox">
+					    <label>
+					      <input type="checkbox"> Bahasa 1
+						</label>
+					</div>
+					<div class="checkbox">
+					    <label>
+					      <input type="checkbox"> Bahasa 1
+						</label>
+					</div>
+					<div class="checkbox">
+					    <label>
+					      <input type="checkbox"> Bahasa 1
+						</label>
+					</div>
+					<div class="checkbox">
+					    <label>
+					      <input type="checkbox"> Bahasa 1
+						</label>
+					</div>
+					<div class="checkbox">
+					    <label>
+					      <input type="checkbox"> Bahasa 1
+						</label>
+					</div>
+				</div>
 			  </div>
 			</div>
 			<div class="panel panel-default">
 			  <div class="panel-heading pointer" onclick="$('#bodyDialek').slideToggle()">Dialek</div>
 			  <div class="panel-body panelmenu" id="bodyDialek">
-			    <ul class="panelDialek">
-			    	<li>Dialek 1</li>
-			    	<li>Dialek 2</li>
-			    	<li>Dialek 3</li>
-			    	<li>Dialek 3</li>
-			    	<li>Dialek 3</li>
-			    	<li>Dialek 3</li>
-			    </ul>
+			    <div class="contain-bahasa-dialek">
+				    <div class="checkbox">
+					    <label>
+					      <input type="checkbox"> Dialek 1
+						</label>
+					</div>
+					<div class="checkbox">
+					    <label>
+					      <input type="checkbox"> Dialek 1
+						</label>
+					</div>
+					<div class="checkbox">
+					    <label>
+					      <input type="checkbox"> Dialek 1
+						</label>
+					</div>
+					<div class="checkbox">
+					    <label>
+					      <input type="checkbox"> Dialek 1
+						</label>
+					</div>
+					<div class="checkbox">
+					    <label>
+					      <input type="checkbox"> Dialek 1
+						</label>
+					</div>
+				</div>
 			  </div>
 			</div>
 			<div class="panel panel-default">
@@ -89,10 +133,7 @@
 			  </div>
 			</div>
 		</nav>
-		<div class="main-map" id="main-map">
-			<!--div id="gmap" class="fill"></div>
-            <div id="olmap" class="fill"></div-->	
-		</div>
+		<div class="main-map" id="main-map"><!--PETA GMAP--></div>
 		<section id="btnMenu">
 			<button class="" id="showLeft">Lihat Menu</button>
 		</section>
@@ -111,6 +152,7 @@
 				body = document.body;
 			closeRight.onclick = function(){
 				classie.remove(menuRight, 'cbp-spmenu-open' );
+				/* classie.toggle(menuRight, 'cbp-spmenu-open' ); */
 			};
 			showLeft.onclick = function() {
 				classie.toggle( this, 'active' );
@@ -142,13 +184,14 @@
 					default:
 						pinColor = "3498db";
 				}
-				console.log(pinColor);
+				//console.log(pinColor);
 			    var pinImage = new google.maps.MarkerImage("http://www.googlemapsmarkers.com/v1/"+label+"/"+pinColor+"/",
 			        new google.maps.Size(21, 34),
 			        new google.maps.Point(0,0),
 			        new google.maps.Point(10, 34));
+			    
 			    return pinImage;
-			}
+			};
 			function initialize() {
 			  var myLatlng = new google.maps.LatLng(endangered[0][5], endangered[0][6]);
 			  var mapOptions = {
@@ -160,9 +203,11 @@
 			      mapOptions);
 		        //tampilkan
 		        for (key in endangered){
-		        	var contentInfo = '<div class="info-punah"><p>Status Bahasa: '+endangered[key][2]+'</p>'+
+		        	var contentInfo = '<div class="info-punah"><p>Bahasa : '+endangered[key][1]+'</p>'+
+		        						'<p>Status Bahasa: '+endangered[key][2]+'</p>'+
 		        						'<p>Jumlah Penutur : '+endangered[key][3]+'</p>'+
-		        						'<p>Status Penutur : '+endangered[key][4]+'</p>';
+		        						'<p>Status Penutur : '+endangered[key][4]+'</p>'+
+		        						'<p>Provinsi : '+endangered[key][7]+'</p>';
 		        	var infowindow = new google.maps.InfoWindow();
 		        	imaps.listinfo.push(contentInfo);
 		        	//
@@ -182,7 +227,7 @@
                        }
                  })(marker, contentInfo));
 		        }
-			}
+			};
 			google.maps.event.addDomListener(window, 'load', initialize);
 		</script>
 	</body>
