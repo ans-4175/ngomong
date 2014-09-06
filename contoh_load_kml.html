@@ -11,59 +11,48 @@
     <!-- include the Maps API JavaScript using a script tag -->
     <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?v=3.exp"></script>
     <script type="text/javascript">
+	var myOptions;
+	var map;
+	var provinces = new Array();
+	function addLayer(pName, location){
+		
+		  var kmlLayer = new google.maps.KmlLayer({
+			url: location,
+			suppressInfoWindows: true,
+			map: map,
+			name:pName
+		  });
+
+		  provinces.push(kmlLayer);
+		  google.maps.event.addListener(kmlLayer, 'click', function(kmlEvent) {
+			alert(kmlLayer.name);
+		  });
+		
+	}
+	function removeLayer(name){
+		for(var i=0;i<provinces.length;i++){
+			if(provinces[i].name == name){
+				var p = provinces[i];
+				p.setMap(null);
+				provinces.splice(i, 1);
+				break;
+			}
+		};		
+	}
     function initialize()
     {
         <!-- create a JavaScript object literal to hold a number of map properties -->
-        var myOptions =
+        myOptions =
         {
-            center: new google.maps.LatLng(-3.1514, 126.2713),
+            center: new google.maps.LatLng(-7.0136, 110.4345),
             zoom: 8,
             mapTypeId: google.maps.MapTypeId.ROADMAP,
             fillColor: '#0000ff'
         };
         <!-- a JavaScript function to create a "map" object -->
-        var map = new google.maps.Map(document.getElementById("map_canvas"),myOptions);
-		
-  var ctaLayer = new google.maps.KmlLayer({
-    url: 'http://gmaps-samples.googlecode.com/svn/trunk/ggeoxml/cta.kml'
-  });
-  ctaLayer.setMap(map);
-
-        var myLayer = new google.maps.KmlLayer('http://localhost/gis/Jawa Barat.kml',{suppressInfoWindows: true,map: map});
-        google.maps.event.addListener
-        (
-            myLayer,"mouseover",function()
-            {
-                this.setOptions({fillColor: "#000000"});
-            }
-        ); 
-        google.maps.event.addListener
-        (
-            myLayer, 'click', function(kmlEvent)
-            {
-                var text = kmlEvent.featureData.description;
-                showInContentWindow(text);
-            }
-        );
-
-        google.maps.event.addListener
-        (
-            myLayer,"mouseover",function()
-            {
-                this.setOptions
-                (
-                    {
-                        fillColor: "#000000"
-                    }
-                );
-            }
-        ); 
-
-        function showInContentWindow(text)
-        {
-            var sidediv = document.getElementById('content_window');
-            sidediv.innerHTML = text;
-        }
+        map = new google.maps.Map(document.getElementById("map_canvas"),myOptions);
+		addLayer("Jawa Barat", "https://dl.dropboxusercontent.com/u/45417138/Jawa%20Barat.kml");
+		addLayer("Jawa Tengah", "https://dl.dropboxusercontent.com/u/45417138/Jawa%20Tengah.kml");
     }
     </script>
 </head>
@@ -72,5 +61,6 @@
     <!-- create a div element named "map_canvas" to hold the Map -->
     <div id="map_canvas" style="width:79%; height:100%; float:left"></div>
     <div id="content_window" style="width:19%; height:100%; float:left"></div>
+	<a onclick="removeLayer('Jawa Tengah')">Hapus</a>
 </body>
 </html>
