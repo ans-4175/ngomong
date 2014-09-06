@@ -113,11 +113,6 @@ a:hover {
 	z-index: 1000;
 }
 
-.cbp-spmenu-vertical a {
-	border-bottom: 1px solid #258ecd;
-	padding: 1em;
-}
-
 /* Vertical menu that slides from the left or right */
 
 .cbp-spmenu-left {
@@ -159,14 +154,19 @@ a:hover {
 	height: 120px;
 }
 
-.panelDialek{
-	padding: 5px 0;
+.panelEvent{
+	padding: 5px;
+	position: relative;
+	left: 10px;
+	top: 5px;
+	list-style-type: none;
 	overflow-y: auto;
-	height: 100px;
+	height: 80%;
+	color: #FFF;
 }
 
-.panelDialek li{
-	margin: 5px 0;
+.panelEvent li{
+	margin: 7px 0;
 	cursor: pointer;
 }
 
