@@ -67,7 +67,7 @@
 			<div class="panel panel-default">
 			  <div class="panel-heading pointer" onclick="$('#bodyBahasa').slideToggle()">Bahasa</div>
 			  <div class="panel-body panelmenu" id="bodyBahasa">
-			    <ul class="panelBahasaDialek">
+			    <ul class="panelBahasaDialek" id="listBahasa">
 					<li>Bahasa 1</li>
 					<li>Bahasa 1</li>
 					<li>Bahasa 1</li>
@@ -80,7 +80,7 @@
 			<div class="panel panel-default">
 			  <div class="panel-heading pointer" onclick="$('#bodyDialek').slideToggle()">Dialek</div>
 			  <div class="panel-body panelmenu" id="bodyDialek">
-			    <ul class="panelBahasaDialek">
+			    <ul class="panelBahasaDialek" id="listDialek">
 					<li>Dialek 1</li>
 					<li>Dialek 1</li>
 					<li>Dialek 1</li>
@@ -258,6 +258,18 @@
 			}			
 			function changeProvince(){
 				showArea(document.getElementById("selProvinsi").value);
+				//show bahasa list
+				var strcontent = '';
+				var listBhs = getBahasaFromProvince(document.getElementById("selProvinsi").value);
+				for (key in listBhs){
+					for (key in endangered){
+						if(endangered[key][0] == listBhs[key]){
+							strcontent += '<li onclick="setAreaFromIdBahasa('+endangered[key][0]+')">'+endangered[key][1]+'</li>';
+						}
+					}
+				}
+				$('#listBahasa').html(strcontent);
+				$('#bodyBahasa').show();
 			}
 			function getEventInfo(idBahasa){
 				for (key in data_event){
