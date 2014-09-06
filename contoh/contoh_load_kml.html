@@ -9,13 +9,13 @@
       #map_canvas { height: 100% }
     </style>
     <!-- include the Maps API JavaScript using a script tag -->
+	<script type="text/javascript" src="../js/data_area.json"></script>
     <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?v=3.exp"></script>
     <script type="text/javascript">
 	var myOptions;
 	var map;
 	var provinces = new Array();
 	function addLayer(pName, location){
-		
 		  var kmlLayer = new google.maps.KmlLayer({
 			url: location,
 			suppressInfoWindows: true,
@@ -51,9 +51,27 @@
         };
         <!-- a JavaScript function to create a "map" object -->
         map = new google.maps.Map(document.getElementById("map_canvas"),myOptions);
-		addLayer("Jawa Barat", "https://dl.dropboxusercontent.com/u/45417138/Jawa%20Barat.kml");
-		addLayer("Jawa Tengah", "https://dl.dropboxusercontent.com/u/45417138/Jawa%20Tengah.kml");
+		
+		// load data area
+		for (key in data_area){
+			addLayer(data_area[key][1], data_area[key][3]);
+		}
     }
+	function clearLayer(){
+		while(provinces.length!=0){
+			var p = provinces[0];
+			p.setMap(null);
+			provinces.splice(0, 1);
+		};				
+	}
+	function showArea(areaName){
+		clearLayer();
+		for (key in data_area){
+			if(data_area[key][1] == areaName){
+				addLayer(data_area[key][1], data_area[key][3]);
+			}
+		}		
+	}
     </script>
 </head>
 <!-- initialize the map object from the body tag's onload event -->
@@ -61,6 +79,6 @@
     <!-- create a div element named "map_canvas" to hold the Map -->
     <div id="map_canvas" style="width:79%; height:100%; float:left"></div>
     <div id="content_window" style="width:19%; height:100%; float:left"></div>
-	<a onclick="removeLayer('Jawa Tengah')">Hapus</a>
+	<a onclick="showArea('Banten')">Hapus</a>
 </body>
 </html>
