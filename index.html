@@ -276,7 +276,16 @@
 			function changeProvince(){
 				showArea(document.getElementById("selProvinsi").value);
 			}
+			function getEventInfo(idBahasa){
+				for (key in data_event){
+					if(data_event[key][7] == idBahasa){
+						return data_event[key];
+						break;
+					}
+				}						
+			}
 			google.maps.event.addDomListener(window, 'load', initialize);
+			alert(getEventInfo(1)); // contoh pemanggilan get info
 		</script>
 	</body>
 </html>
