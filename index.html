@@ -14,6 +14,9 @@
 		<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
 		<link rel="stylesheet" type="text/css" href="css/bootstrap-theme.min.css">
 		<script src="js/modernizr.js"></script>
+		<script type="text/javascript" src="js/data_dialek.json"></script>
+		<script type="text/javascript" src="js/data_kata.json"></script>
+		<script type="text/javascript" src="js/data_padanan.json"></script>
 		<script type="text/javascript" src="js/data_area.json"></script>
 		<script type="text/javascript" src="js/data_mapping_area.json"></script>
 		<script type="text/javascript" src="js/data_event.json"></script>
@@ -96,7 +99,7 @@
 			    <div class="form-group">
 				    <label for="translasi-kata">Masukkan kata</label>
 					<input type="text" class="form-control" id="translasi-kata" name="translasi-kata" placeholder="kata yang ingin dicari">
-					<button  type="button" class="btn btn-success btn-sm btnTranslasi" id="btnTranslasi">Translasi !</button>
+					<button  type="button" class="btn btn-success btn-sm btnTranslasi" onClick="translasi();" id="btnTranslasi">Translasi !</button>
 				</div>
 			  </div>
 			</div>
@@ -283,13 +286,18 @@
 				}
 				showMultiArea(listArea);
 			}
-			function getBahasaFromProvince(namaProvince){
+			function getIdProvince(namaProvince){
 				var idProvince;
 				for (area in data_area){
 					if(namaProvince == data_area[area][1]){
 						idProvince = data_area[area][0];
+						break;
 					}
 				}
+				return idProvince;
+			}
+			function getBahasaFromProvince(namaProvince){
+				var idProvince = getIdProvince(namaProvince);
 				var retval = new Array();
 				for (key in data_area_mapping){
 					if(data_area_mapping[key][1] == idProvince){
@@ -298,6 +306,62 @@
 				}				
 				return retval;
 			}
+			function getDialekFromIdBahasa(idBahasa){
+				var retval = new Array();
+				for (key in data_dialek){
+					if(data_dialek[key][8] == idBahasa){
+						retval.push(data_dialek[key]);
+					}
+				}				
+				return retval;			
+			}
+			function getPadananFromKataInProvince(kata, namaProvince){
+				var idKata = getIdKata(kata);
+				var idProvince = getIdProvince(namaProvince);
+				var listIdBahasa = getListBahasaFromProvince(idProvince);
+				var retval = new Array();
+				for (key in data_padanan){
+					for (key2 in listIdBahasa){
+						if(data_padanan[key][2] == listIdBahasa[key2][0] && data_padanan[key][1] == idKata){
+							retval.push(new Array(getBahasaFromIdBahasa(data_padanan[key][2]), data_padanan[key][3]));
+						}
+					}
+				}				
+				return retval;							
+			}
+			function getIdKata(kata){
+				for (key in data_kata){
+					if(kata.toLowerCase() == data_kata[key][1].toLowerCase()){
+						return data_kata[key][0];
+					}
+				}
+			}
+			function getListBahasaFromProvince(idProvince){
+				var retval = new Array();
+				for (key in data_area_mapping){
+					if(data_area_mapping[key][1] == idProvince){
+						retval.push(data_area_mapping[key]);
+					}
+				}				
+				return retval;				
+			}
+			function getBahasaFromIdBahasa(idBahasa){
+				var bahasa;
+				for (key in endangered){
+					if(idBahasa == endangered[key][0]){
+						bahasa = endangered[key][1];
+						break;
+					}
+				}
+				return bahasa;			
+			}
+			function translasi(){
+				
+				alert(getPadananFromKataInProvince(document.getElementById('translasi-kata').value, document.getElementById('selProvinsi').value));
+			}
+			// Fungsi untuk nyari padanan kata dari suatu kata dengan provinsinya
+			// alert(getPadananFromKataInProvince("makan", "Banten"));
+			// alert(getDialekFromIdBahasa(1));
 			google.maps.event.addDomListener(window, 'load', initialize);
 		</script>
 	</body>
