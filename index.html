@@ -170,17 +170,8 @@
 			    
 			    return pinImage;
 			};
-			function initialize() {
-			  var myLatlng = new google.maps.LatLng(endangered[0][5], endangered[0][6]);
-			  var mapOptions = {
-			    zoom: 5,
-			    center: myLatlng,
-			    mapTypeId: google.maps.MapTypeId.TERRAIN
-			  };
-			  imaps.map = new google.maps.Map(document.getElementById('main-map'),
-			      mapOptions);
-		        //tampilkan
-		        for (key in endangered){
+			function showMarker(){
+				for (key in endangered){
 		        	var contentInfo = '<div class="info-punah"><p>Bahasa : '+endangered[key][1]+'</p>'+
 		        						'<p>Status Bahasa: '+endangered[key][2]+'</p>'+
 		        						'<p>Jumlah Penutur : '+endangered[key][3]+'</p>'+
@@ -205,6 +196,16 @@
                        }
                  })(marker, contentInfo));
 		        }
+			}
+			function initialize() {
+			  var myLatlng = new google.maps.LatLng(endangered[0][5], endangered[0][6]);
+			  var mapOptions = {
+			    zoom: 5,
+			    center: myLatlng,
+			    mapTypeId: google.maps.MapTypeId.TERRAIN
+			  };
+			  imaps.map = new google.maps.Map(document.getElementById('main-map'),
+			      mapOptions);
 			};
 			function clearLayer(){
 				while(provinces.length!=0){
