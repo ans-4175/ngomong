@@ -23,6 +23,12 @@
         };
         <!-- a JavaScript function to create a "map" object -->
         var map = new google.maps.Map(document.getElementById("map_canvas"),myOptions);
+		
+  var ctaLayer = new google.maps.KmlLayer({
+    url: 'http://gmaps-samples.googlecode.com/svn/trunk/ggeoxml/cta.kml'
+  });
+  ctaLayer.setMap(map);
+
         var myLayer = new google.maps.KmlLayer('http://localhost/gis/Jawa Barat.kml',{suppressInfoWindows: true,map: map});
         google.maps.event.addListener
         (
