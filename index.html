@@ -17,7 +17,7 @@
 		<script src="https://maps.googleapis.com/maps/api/js?v=3.exp"></script>
 	</head>
 	<body>
-		<nav class="cbp-spmenu-open cbp-spmenu cbp-spmenu-vertical cbp-spmenu-right" id="cbp-spmenu-s2">
+		<nav class="cbp-spmenu cbp-spmenu-vertical cbp-spmenu-right" id="cbp-spmenu-s2">
 			<div><span class="label label-danger" id="closeRight">close</span></div>
 		</nav>
 		<nav class="cbp-spmenu cbp-spmenu-vertical cbp-spmenu-left" id="cbp-spmenu-s1">
@@ -98,7 +98,6 @@
 		</section>
 		<!-- Classie - class helper functions by @desandro https://github.com/desandro/classie -->
 		<script src="js/classie.js"></script>
-		<script src="js/google-map.js"></script>
 		<script src="js/endangered.json"></script>
 		<script src="js/jquery-1.11.1.min.js"></script>
 		<script src="js/bootstrap.min.js"></script>
@@ -122,6 +121,34 @@
 				else
 					this.innerHTML = "Lihat Menu";
 			};
+			function getPin(stat,label){
+				var pinColor;
+				switch (stat){
+					case 'Vulnerable' :
+						pinColor = "ecf0f1";
+						break;
+					case 'Definitely endangered' :
+						pinColor = "f1c40f";
+						break;
+					case 'Severely endangered' :
+						pinColor = "e67e22";
+						break;
+					case 'Critically endangered' :
+						pinColor = "e74c3c";
+						break;
+					case 'Extinct' :
+						pinColor = "7f8c8d";
+						break;
+					default:
+						pinColor = "3498db";
+				}
+				console.log(pinColor);
+			    var pinImage = new google.maps.MarkerImage("http://www.googlemapsmarkers.com/v1/"+label+"/"+pinColor+"/",
+			        new google.maps.Size(21, 34),
+			        new google.maps.Point(0,0),
+			        new google.maps.Point(10, 34));
+			    return pinImage;
+			}
 			function initialize() {
 			  var myLatlng = new google.maps.LatLng(endangered[0][5], endangered[0][6]);
 			  var mapOptions = {
@@ -139,9 +166,11 @@
 		        	var infowindow = new google.maps.InfoWindow();
 		        	imaps.listinfo.push(contentInfo);
 		        	//
+				    var pinImage = getPin(endangered[key][2],endangered[key][4])
 		          var marker = new google.maps.Marker({
 		            position: new google.maps.LatLng(endangered[key][5], endangered[key][6]),
 		            title:endangered[key][1]+", "+endangered[key][7],
+		            icon: pinImage,
 		            map: imaps.map
 		          });
 		          imaps.listmarkers.push(marker);
