@@ -15,6 +15,8 @@
 		<link rel="stylesheet" type="text/css" href="css/bootstrap-theme.min.css">
 		<script src="js/modernizr.js"></script>
 		<script type="text/javascript" src="js/data_area.json"></script>
+		<script type="text/javascript" src="js/data_mapping_area.json"></script>
+		<script type="text/javascript" src="js/data_event.json"></script>
 		<script src="https://maps.googleapis.com/maps/api/js?v=3.exp"></script>
 	</head>
 	<body>
@@ -39,8 +41,6 @@
 				  <option>Jawa Tengah</option>
 				  <option>Yogyakarta</option>
 				  <option>Jawa Timur</option>
-				  <option>Banten</option>
-				  <option>Jakarta</option>
 				</select>
 				<h3>Kondisi :</h3>
 			    <div class="radio">
@@ -276,6 +276,14 @@
 			}			
 			function changeProvince(){
 				showArea(document.getElementById("selProvinsi").value);
+			}
+			function getEventInfo(idBahasa){
+				for (key in data_event){
+					if(data_event[key][7] == idBahasa){
+						return data_event[key];
+						break;
+					}
+				}						
 			}
 			google.maps.event.addDomListener(window, 'load', initialize);
 		</script>
