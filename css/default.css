@@ -41,6 +41,22 @@ a:hover {
 	margin: 0 auto;
 }
 
+#btnEvent {
+	position: absolute;
+	right:20px;
+	top: 10px;
+	max-width: 100px;
+	width: 90%;
+	margin: 0 auto;
+}
+
+#btnEvent.active {
+	right:260px;
+	-webkit-transition: all 0.3s ease;
+	-moz-transition: all 0.3s ease;
+	transition: all 0.3s ease;
+}
+
 #btnMenu.active {
 	left:260px;
 	-webkit-transition: all 0.3s ease;
@@ -48,7 +64,7 @@ a:hover {
 	transition: all 0.3s ease;
 }
 
-#showLeft {
+#showLeft, #showRight {
 	border: none;
 	background: #47a3da;
 	color: #fff;
@@ -59,11 +75,11 @@ a:hover {
 	font-size: 0.8em;
 }
 
-#showLeft:hover {
+#showLeft:hover, #showRight:hover {
 	background: #258ecd;
 }
 
-#showLeft.active {
+#showLeft.active, #showRight.active {
 	background: #0d77b6;
 }
 

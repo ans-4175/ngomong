@@ -20,8 +20,8 @@
 		<script src="https://maps.googleapis.com/maps/api/js?v=3.exp"></script>
 	</head>
 	<body>
-		<nav class="cbp-spmenu-open cbp-spmenu cbp-spmenu-vertical cbp-spmenu-right" id="cbp-spmenu-s2">
-			<div><span class="label label-danger" id="closeRight">close</span></div>
+		<nav class="cbp-spmenu cbp-spmenu-vertical cbp-spmenu-right" id="cbp-spmenu-s2">
+			<!--div><span class="label label-danger" id="closeRight">close</span></div-->
 			<ul class="panelEvent">
 				<li>Event atuhlah si lorem ipsum sit amet kono isoh ra iso</li>
 			</ul>
@@ -143,6 +143,9 @@
 		<section id="btnMenu">
 			<button class="" id="showLeft">Lihat Menu</button>
 		</section>
+		<section id="btnEvent">
+			<button class="" id="showRight">Lihat Event</button>
+		</section>
 		<!-- Classie - class helper functions by @desandro https://github.com/desandro/classie -->
 		<script src="js/classie.js"></script>
 		<script src="js/endangered.json"></script>
@@ -154,12 +157,18 @@
 			var menuLeft = document.getElementById( 'cbp-spmenu-s1' ),
 				menuRight = document.getElementById( 'cbp-spmenu-s2' ),
 				showLeft = document.getElementById( 'showLeft' ),
-				closeRight = document.getElementById( 'closeRight' ),
+				showRight = document.getElementById( 'showRight' ),
 				btnMenu = document.getElementById( 'btnMenu' ),
+				btnEvent = document.getElementById( 'btnEvent' ),
 				body = document.body;
-			closeRight.onclick = function(){
-				classie.remove(menuRight, 'cbp-spmenu-open' );
-				/* classie.toggle(menuRight, 'cbp-spmenu-open' ); */
+			showRight.onclick = function(){
+				classie.toggle(menuRight, 'cbp-spmenu-open' );
+				classie.toggle( this, 'active' );
+				classie.toggle( btnEvent, 'active' );
+				if (classie.has( this, 'active' ))
+					this.innerHTML = "Tutup Event";
+				else
+					this.innerHTML = "Lihat Event";
 			};
 			showLeft.onclick = function() {
 				classie.toggle( this, 'active' );
