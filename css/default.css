@@ -37,7 +37,6 @@ a:hover {
 	left:20px;
 	top: 10px;
 	max-width: 100px;
-	width: 90%;
 	margin: 0 auto;
 }
 
@@ -46,7 +45,6 @@ a:hover {
 	right:20px;
 	top: 10px;
 	max-width: 100px;
-	width: 90%;
 	margin: 0 auto;
 }
 
@@ -162,13 +160,14 @@ a:hover {
 
 .panelmenu{
 	padding: 7px;
+	height: 180px;
 }
 
-.contain-bahasa-dialek{
+/*.contain-bahasa-dialek{
 	overflow-y: auto;
 	overflow-x: hidden;
 	height: 120px;
-}
+}*/
 
 .panelEvent{
 	padding: 5px;
@@ -182,6 +181,20 @@ a:hover {
 }
 
 .panelEvent li{
+	margin: 7px 0;
+	cursor: pointer;
+}
+
+.panelBahasaDialek{
+	padding: 5px;
+	position: relative;
+	list-style-type: none;
+	overflow-y: auto;
+	height: 90%;
+	color: #000;
+}
+
+.panelBahasaDialek li{
 	margin: 7px 0;
 	cursor: pointer;
 }

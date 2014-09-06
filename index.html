@@ -67,65 +67,27 @@
 			<div class="panel panel-default">
 			  <div class="panel-heading pointer" onclick="$('#bodyBahasa').slideToggle()">Bahasa</div>
 			  <div class="panel-body panelmenu" id="bodyBahasa">
-			    <div class="contain-bahasa-dialek">
-				    <div class="checkbox">
-					    <label>
-					      <input type="checkbox"> Bahasa 1
-						</label>
-					</div>
-					<div class="checkbox">
-					    <label>
-					      <input type="checkbox"> Bahasa 1
-						</label>
-					</div>
-					<div class="checkbox">
-					    <label>
-					      <input type="checkbox"> Bahasa 1
-						</label>
-					</div>
-					<div class="checkbox">
-					    <label>
-					      <input type="checkbox"> Bahasa 1
-						</label>
-					</div>
-					<div class="checkbox">
-					    <label>
-					      <input type="checkbox"> Bahasa 1
-						</label>
-					</div>
-				</div>
+			    <ul class="panelBahasaDialek">
+					<li>Bahasa 1</li>
+					<li>Bahasa 1</li>
+					<li>Bahasa 1</li>
+					<li>Bahasa 1</li>
+					<li>Bahasa 1</li>
+					<li>Bahasa 1</li>
+				</ul>
 			  </div>
 			</div>
 			<div class="panel panel-default">
 			  <div class="panel-heading pointer" onclick="$('#bodyDialek').slideToggle()">Dialek</div>
 			  <div class="panel-body panelmenu" id="bodyDialek">
-			    <div class="contain-bahasa-dialek">
-				    <div class="checkbox">
-					    <label>
-					      <input type="checkbox"> Dialek 1
-						</label>
-					</div>
-					<div class="checkbox">
-					    <label>
-					      <input type="checkbox"> Dialek 1
-						</label>
-					</div>
-					<div class="checkbox">
-					    <label>
-					      <input type="checkbox"> Dialek 1
-						</label>
-					</div>
-					<div class="checkbox">
-					    <label>
-					      <input type="checkbox"> Dialek 1
-						</label>
-					</div>
-					<div class="checkbox">
-					    <label>
-					      <input type="checkbox"> Dialek 1
-						</label>
-					</div>
-				</div>
+			    <ul class="panelBahasaDialek">
+					<li>Dialek 1</li>
+					<li>Dialek 1</li>
+					<li>Dialek 1</li>
+					<li>Dialek 1</li>
+					<li>Dialek 1</li>
+					<li>Dialek 1</li>
+				</ul>
 			  </div>
 			</div>
 			<div class="panel panel-default">
@@ -166,7 +128,7 @@
 				classie.toggle( this, 'active' );
 				classie.toggle( btnEvent, 'active' );
 				if (classie.has( this, 'active' ))
-					this.innerHTML = "Tutup Event";
+					this.innerHTML = ">>";
 				else
 					this.innerHTML = "Lihat Event";
 			};
@@ -175,7 +137,7 @@
 				classie.toggle( btnMenu, 'active' );
 				classie.toggle( menuLeft, 'cbp-spmenu-open' );
 				if (classie.has( this, 'active' ))
-					this.innerHTML = "Tutup Menu";
+					this.innerHTML = "<<";
 				else
 					this.innerHTML = "Lihat Menu";
 			};
