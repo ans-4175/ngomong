@@ -37,8 +37,22 @@ a:hover {
 	left:20px;
 	top: 10px;
 	max-width: 100px;
-	width: 90%;
 	margin: 0 auto;
+}
+
+#btnEvent {
+	position: absolute;
+	right:20px;
+	top: 10px;
+	max-width: 100px;
+	margin: 0 auto;
+}
+
+#btnEvent.active {
+	right:260px;
+	-webkit-transition: all 0.3s ease;
+	-moz-transition: all 0.3s ease;
+	transition: all 0.3s ease;
 }
 
 #btnMenu.active {
@@ -48,7 +62,7 @@ a:hover {
 	transition: all 0.3s ease;
 }
 
-#showLeft {
+#showLeft, #showRight {
 	border: none;
 	background: #47a3da;
 	color: #fff;
@@ -59,11 +73,11 @@ a:hover {
 	font-size: 0.8em;
 }
 
-#showLeft:hover {
+#showLeft:hover, #showRight:hover {
 	background: #258ecd;
 }
 
-#showLeft.active {
+#showLeft.active, #showRight.active {
 	background: #0d77b6;
 }
 
@@ -113,11 +127,6 @@ a:hover {
 	z-index: 1000;
 }
 
-.cbp-spmenu-vertical a {
-	border-bottom: 1px solid #258ecd;
-	padding: 1em;
-}
-
 /* Vertical menu that slides from the left or right */
 
 .cbp-spmenu-left {
@@ -151,22 +160,42 @@ a:hover {
 
 .panelmenu{
 	padding: 7px;
+	height: 180px;
 }
 
-.contain-bahasa-dialek{
+/*.contain-bahasa-dialek{
 	overflow-y: auto;
 	overflow-x: hidden;
 	height: 120px;
-}
+}*/
 
-.panelDialek{
-	padding: 5px 0;
+.panelEvent{
+	padding: 5px;
+	position: relative;
+	left: 10px;
+	top: 5px;
+	list-style-type: none;
 	overflow-y: auto;
-	height: 100px;
+	height: 80%;
+	color: #FFF;
 }
 
-.panelDialek li{
-	margin: 5px 0;
+.panelEvent li{
+	margin: 7px 0;
+	cursor: pointer;
+}
+
+.panelBahasaDialek{
+	padding: 5px;
+	position: relative;
+	list-style-type: none;
+	overflow-y: auto;
+	height: 90%;
+	color: #000;
+}
+
+.panelBahasaDialek li{
+	margin: 7px 0;
 	cursor: pointer;
 }
 
