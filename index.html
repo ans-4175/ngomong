@@ -222,6 +222,16 @@
 					}
 				}		
 			}
+			function showMultiArea(listArea){
+				clearLayer();
+				for (list in listArea){
+					for (key in data_area){
+						if(data_area[key][1] == listArea[list]){
+							addLayer(data_area[key][1], data_area[key][3]);
+						}
+					}
+				}
+			}
 			function addLayer(pName, location){
 				  var kmlLayer = new google.maps.KmlLayer({
 					url: location,
@@ -256,6 +266,38 @@
 						break;
 					}
 				}						
+			}
+			function setAreaFromIdBahasa(idBahasa){
+				var retval = new Array();
+				for (key in data_area_mapping){
+					if(data_area_mapping[key][0] == idBahasa){
+						retval.push(data_area_mapping[key][1]);
+					}
+				}
+				var listArea = new Array();
+				for (key in retval){
+					for (area in data_area){
+						if(retval[key] == data_area[area][0]){
+							listArea.push(data_area[area][1]);
+						}
+					}
+				}
+				showMultiArea(listArea);
+			}
+			function getBahasaFromProvince(namaProvince){
+				var idProvince;
+				for (area in data_area){
+					if(namaProvince == data_area[area][1]){
+						idProvince = data_area[area][0];
+					}
+				}
+				var retval = new Array();
+				for (key in data_area_mapping){
+					if(data_area_mapping[key][1] == idProvince){
+						retval.push(data_area_mapping[key][0]);
+					}
+				}				
+				return retval;
 			}
 			google.maps.event.addDomListener(window, 'load', initialize);
 		</script>
