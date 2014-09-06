@@ -1,2 +1,2 @@
 // id, kata
-var data_kata = [["1","Makan"],["2","Tidur"]]
+var data_kata = [["1","Makan"],["2","Tidur"],["3","Mandi"],["4","Minum"],["5","Pergi"],["6","Datang"],["7","Air"],["8","Malam"],["9","Cantik"],["10","Batu"],["11","Besar"],["12","Kebun"]]
