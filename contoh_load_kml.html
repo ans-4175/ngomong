@@ -1,0 +1,70 @@
+<!-- Declare the application as HTML5 using the <!DOCTYPE html> declaration -->
+<!DOCTYPE html>
+<html>
+    <head>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+    <style type="text/css">
+      html { height: 100% }
+      body { height: 100%; margin: 0; padding: 0 }
+      #map_canvas { height: 100% }
+    </style>
+    <!-- include the Maps API JavaScript using a script tag -->
+    <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?key=AIzaSyAaWOu7N4OX8BlYUwZhvWP2V0P6YQryN9Y&sensor=true"></script>
+    <script type="text/javascript">
+    function initialize()
+    {
+        <!-- create a JavaScript object literal to hold a number of map properties -->
+        var myOptions =
+        {
+            center: new google.maps.LatLng(-34.397, 150.644),
+            zoom: 8,
+            mapTypeId: google.maps.MapTypeId.ROADMAP,
+            fillColor: '#0000ff'
+        };
+        <!-- a JavaScript function to create a "map" object -->
+        var map = new google.maps.Map(document.getElementById("map_canvas"),myOptions);
+        var myLayer = new google.maps.KmlLayer('http://www.domain.com/gmaps/1.kml',{suppressInfoWindows: true,map: map});
+        google.maps.event.addListener
+        (
+            myLayer,"mouseover",function()
+            {
+                this.setOptions({fillColor: "#000000"});
+            }
+        ); 
+        google.maps.event.addListener
+        (
+            myLayer, 'click', function(kmlEvent)
+            {
+                var text = kmlEvent.featureData.description;
+                showInContentWindow(text);
+            }
+        );
+
+        google.maps.event.addListener
+        (
+            myLayer,"mouseover",function()
+            {
+                this.setOptions
+                (
+                    {
+                        fillColor: "#000000"
+                    }
+                );
+            }
+        ); 
+
+        function showInContentWindow(text)
+        {
+            var sidediv = document.getElementById('content_window');
+            sidediv.innerHTML = text;
+        }
+    }
+    </script>
+</head>
+<!-- initialize the map object from the body tag's onload event -->
+<body onLoad="initialize()">
+    <!-- create a div element named "map_canvas" to hold the Map -->
+    <div id="map_canvas" style="width:79%; height:100%; float:left"></div>
+    <div id="content_window" style="width:19%; height:100%; float:left"></div>
+</body>
+</html>
