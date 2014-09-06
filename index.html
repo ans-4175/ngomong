@@ -14,12 +14,6 @@
 		<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
 		<link rel="stylesheet" type="text/css" href="css/bootstrap-theme.min.css">
 		<script src="js/modernizr.js"></script>
-		<script type="text/javascript" src="js/data_dialek.json"></script>
-		<script type="text/javascript" src="js/data_kata.json"></script>
-		<script type="text/javascript" src="js/data_padanan.json"></script>
-		<script type="text/javascript" src="js/data_area.json"></script>
-		<script type="text/javascript" src="js/data_mapping_area.json"></script>
-		<script type="text/javascript" src="js/data_event.json"></script>
 		<script src="https://maps.googleapis.com/maps/api/js?v=3.exp"></script>
 	</head>
 	<body>
@@ -113,10 +107,16 @@
 		</section>
 		<!-- Classie - class helper functions by @desandro https://github.com/desandro/classie -->
 		<script src="js/classie.js"></script>
-		<script src="js/endangered.json"></script>
-		<script src="js/data_event.json"></script>
 		<script src="js/jquery-1.11.1.min.js"></script>
 		<script src="js/bootstrap.min.js"></script>
+		<!--data json-->
+		<script src="js/data_bahasa.json"></script>
+		<script src="js/data_event.json"></script>
+		<script src="js/data_dialek.json"></script>
+		<script src="js/data_kata.json"></script>
+		<script src="js/data_padanan.json"></script>
+		<script src="js/data_area.json"></script>
+		<script src="js/data_mapping_area.json"></script>
 		<script>
 			var provinces = new Array();
 			var imaps = {map:null,listmarkers:[],listinfo:[]};
@@ -132,9 +132,15 @@
 				classie.toggle( showRight, 'active' );
 				classie.toggle( btnEvent, 'active' );
 				if (classie.has( showRight, 'active' ))
-					this.innerHTML = ">>";
+					showRight.innerHTML = ">>";
 				else
-					this.innerHTML = "Lihat Event";
+					showRight.innerHTML = "Lihat Event";
+			};
+			function showKanan(){
+				classie.add(menuRight, 'cbp-spmenu-open' );
+				classie.add( showRight, 'active' );
+				classie.add( btnEvent, 'active' );
+				showRight.innerHTML = ">>";
 			}
 			showRight.onclick = function(){
 				clickKanan();
@@ -177,35 +183,33 @@
 			    
 			    return pinImage;
 			};
-			function showMarker(){
-				for (key in endangered){
-		        	var contentInfo = '<div class="info-punah"><p>Bahasa : '+endangered[key][1]+'</p>'+
-		        						'<p>Status Bahasa: '+endangered[key][2]+'</p>'+
-		        						'<p>Jumlah Penutur : '+endangered[key][3]+'</p>'+
-		        						'<p>Status Penutur : '+endangered[key][4]+'</p>'+
-		        						'<p>Provinsi : '+endangered[key][7]+'</p>';
-		        	var infowindow = new google.maps.InfoWindow();
-		        	imaps.listinfo.push(contentInfo);
-		        	//
-				    var pinImage = getPin(endangered[key][2],endangered[key][4])
-		          var marker = new google.maps.Marker({
-		            position: new google.maps.LatLng(endangered[key][5], endangered[key][6]),
-		            title:endangered[key][1]+", "+endangered[key][7],
-		            icon: pinImage,
-		            map: imaps.map
-		          });
-		          imaps.listmarkers.push(marker);
-		          //
-		          google.maps.event.addListener(marker, 'click', (function(marker, contentInfo) {
-                       return function() {
-                         infowindow.setContent(contentInfo);
-                         infowindow.open(imaps.map, marker);
-                       }
-                 })(marker, contentInfo));
-		        }
+			function showMarker(dataB){
+	        	var contentInfo = '<div class="info-punah"><p>Bahasa : '+dataB[1]+'</p>'+
+	        						'<p>Status Bahasa: '+dataB[2]+'</p>'+
+	        						'<p>Jumlah Penutur : '+dataB[3]+'</p>'+
+	        						'<p>Status Penutur : '+dataB[4]+'</p>'+
+	        						'<p>Provinsi : '+dataB[7]+'</p>';
+	        	var infowindow = new google.maps.InfoWindow();
+	        	imaps.listinfo.push(contentInfo);
+	        	//
+			    var pinImage = getPin(dataB[2],dataB[4])
+	          var marker = new google.maps.Marker({
+	            position: new google.maps.LatLng(dataB[5], dataB[6]),
+	            title:dataB[1]+", "+dataB[7],
+	            icon: pinImage,
+	            map: imaps.map
+	          });
+	          imaps.listmarkers.push(marker);
+	          //
+	          google.maps.event.addListener(marker, 'click', (function(marker, contentInfo) {
+	               return function() {
+	                 infowindow.setContent(contentInfo);
+	                 infowindow.open(imaps.map, marker);
+	               }
+	         })(marker, contentInfo));
 			}
 			function initialize() {
-			  var myLatlng = new google.maps.LatLng(endangered[0][5], endangered[0][6]);
+			  var myLatlng = new google.maps.LatLng(data_bahasa[0][5], data_bahasa[0][6]);
 			  var mapOptions = {
 			    zoom: 5,
 			    center: myLatlng,
@@ -214,6 +218,13 @@
 			  imaps.map = new google.maps.Map(document.getElementById('main-map'),
 			      mapOptions);
 			};
+			function clearMarker(){
+				while(imaps.listmarkers.length!=0){
+					var p = imaps.listmarkers[0];
+					p.setMap(null);
+					imaps.listmarkers.splice(0, 1);
+				};				
+			}
 			function clearLayer(){
 				while(provinces.length!=0){
 					var p = provinces[0];
@@ -264,30 +275,82 @@
 				};		
 			}			
 			function changeProvince(){
-				showArea(document.getElementById("selProvinsi").value);
+				var provVal = document.getElementById("selProvinsi").value;
+				var optVal = $('input[name="optionsRadios"]:checked').val();
+				var pasang = false;
+				//show area
+				showArea(provVal);
+				clearMarker();
 				//show bahasa list
-				var strcontent = '';
+				var strcontent = ''; var strcontent2 = '';
 				var listBhs = getBahasaFromProvince(document.getElementById("selProvinsi").value);
 				for (key in listBhs){
-					for (key in endangered){
-						if(endangered[key][0] == listBhs[key]){
-							strcontent += '<li onclick="detailIdBahasa('+endangered[key][0]+')">'+endangered[key][1]+'</li>';
+					for (key2 in data_bahasa){
+						if (optVal == 'opt1'){
+							pasang = true;
+						}else if (optVal == 'opt2'){
+							switch (data_bahasa[key2][2]){
+								case 'Vulnerable' :
+								case 'Definitely endangered' :
+								case 'Severely endangered' :
+								case 'Critically endangered' :
+								case 'Extinct' :
+									pasang = true;
+									break;
+								default:
+									pasang = false;
+									break;
+							}
+						}else if (optVal == 'opt3'){
+							switch (data_bahasa[key2][2]){
+								case 'Vulnerable' :
+								case 'Definitely endangered' :
+								case 'Severely endangered' :
+								case 'Critically endangered' :
+								case 'Extinct' :
+									pasang = false;
+									break;
+								default:
+									pasang = true;
+									break;
+							}
+						}
+						if((data_bahasa[key2][0] == listBhs[key]) && pasang){
+							showMarker(data_bahasa[key2]);
+							strcontent += '<li onclick="detailIdBahasa('+data_bahasa[key2][0]+')">'+data_bahasa[key2][1]+'</li>';
+							//show dialek
+							var listDialek = getDialekFromIdBahasa(data_bahasa[key2][0]);
+							for (key3 in listDialek){
+								strcontent2 += '<li>'+listDialek[key3][1]+'</li>';
+							}
 						}
 					}
 				}
+				//bahasa
 				$('#listBahasa').html(strcontent);
 				$('#bodyBahasa').show();
+				//dialek
+				$('#listDialek').html(strcontent2);
+				$('#bodyDialek').show();
 			}
 			function detailIdBahasa(idBahasa){
 				setAreaFromIdBahasa(idBahasa);
-				var strcontent = '';
+				//event
+				var strcontent = ''; var strcontent2 = '';
 				var listEvent = getEventInfo(idBahasa);
 				//console.log(listEvent[0]);
 				for (key in listEvent){
-					strcontent += '<li>'+listEvent[key][4]+' '+listEvent[key][5]+' di '+listEvent[key][1]+', '+listEvent[key][3]+' "'+listEvent[key][2]+'" </li>';
+					strcontent += '<li>'+listEvent[key][4]+' '+listEvent[key][5]+' di '+listEvent[key][1]+', '+listEvent[key][3]+' "'+listEvent[key][2]+'"</li>';
 				}
 				$('#listEvent').html(strcontent);
-				clickKanan();
+				showKanan();
+				//dialek
+				var listDialek = getDialekFromIdBahasa(data_bahasa[key][0]);
+				for (key in listDialek){
+					strcontent2 += '<li>'+listDialek[key][1]+'</li>';
+				}
+				$('#listDialek').html(strcontent2);
+				$('#bodyDialek').show();
 			}
 			function getEventInfo(idBahasa){
 				var retval = new Array();
@@ -377,20 +440,18 @@
 			}
 			function getBahasaFromIdBahasa(idBahasa){
 				var bahasa;
-				for (key in endangered){
-					if(idBahasa == endangered[key][0]){
-						bahasa = endangered[key][1];
+				for (key in data_bahasa){
+					if(idBahasa == data_bahasa[key][0]){
+						bahasa = data_bahasa[key][1];
 						break;
 					}
 				}
 				return bahasa;			
 			}
 			function translasi(){
-				
 				alert(getPadananFromKataInProvince(document.getElementById('translasi-kata').value, document.getElementById('selProvinsi').value));
 			}
 			
-			alert("Ada dua fungsi utama tambahan, getPadanan dan getDialek");
 			// Fungsi untuk nyari padanan kata dari suatu kata dengan provinsinya
 			// alert(getPadananFromKataInProvince("makan", "Banten"));
 			// Fungsi untuk dapetin dialek dari bahasa
