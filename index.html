@@ -25,7 +25,7 @@
 	<body>
 		<nav class="cbp-spmenu cbp-spmenu-vertical cbp-spmenu-right" id="cbp-spmenu-s2">
 			<!--div><span class="label label-danger" id="closeRight">close</span></div-->
-			<ul class="panelEvent">
+			<ul class="panelEvent" id="listEvent">
 				<li>Event atuhlah si lorem ipsum sit amet kono isoh ra iso</li>
 			</ul>
 		</nav>
@@ -70,7 +70,7 @@
 			<div class="panel panel-default">
 			  <div class="panel-heading pointer" onclick="$('#bodyBahasa').slideToggle()">Bahasa</div>
 			  <div class="panel-body panelmenu" id="bodyBahasa">
-			    <ul class="panelBahasaDialek">
+			    <ul class="panelBahasaDialek" id="listBahasa">
 					<li>Bahasa 1</li>
 					<li>Bahasa 1</li>
 					<li>Bahasa 1</li>
@@ -83,7 +83,7 @@
 			<div class="panel panel-default">
 			  <div class="panel-heading pointer" onclick="$('#bodyDialek').slideToggle()">Dialek</div>
 			  <div class="panel-body panelmenu" id="bodyDialek">
-			    <ul class="panelBahasaDialek">
+			    <ul class="panelBahasaDialek" id="listDialek">
 					<li>Dialek 1</li>
 					<li>Dialek 1</li>
 					<li>Dialek 1</li>
@@ -114,6 +114,7 @@
 		<!-- Classie - class helper functions by @desandro https://github.com/desandro/classie -->
 		<script src="js/classie.js"></script>
 		<script src="js/endangered.json"></script>
+		<script src="js/data_event.json"></script>
 		<script src="js/jquery-1.11.1.min.js"></script>
 		<script src="js/bootstrap.min.js"></script>
 		<script>
@@ -126,20 +127,23 @@
 				btnMenu = document.getElementById( 'btnMenu' ),
 				btnEvent = document.getElementById( 'btnEvent' ),
 				body = document.body;
-			showRight.onclick = function(){
+			function clickKanan(){
 				classie.toggle(menuRight, 'cbp-spmenu-open' );
-				classie.toggle( this, 'active' );
+				classie.toggle( showRight, 'active' );
 				classie.toggle( btnEvent, 'active' );
-				if (classie.has( this, 'active' ))
+				if (classie.has( showRight, 'active' ))
 					this.innerHTML = ">>";
 				else
 					this.innerHTML = "Lihat Event";
+			}
+			showRight.onclick = function(){
+				clickKanan();
 			};
 			showLeft.onclick = function() {
-				classie.toggle( this, 'active' );
+				classie.toggle( showLeft, 'active' );
 				classie.toggle( btnMenu, 'active' );
 				classie.toggle( menuLeft, 'cbp-spmenu-open' );
-				if (classie.has( this, 'active' ))
+				if (classie.has( showLeft, 'active' ))
 					this.innerHTML = "<<";
 				else
 					this.innerHTML = "Lihat Menu";
@@ -173,17 +177,8 @@
 			    
 			    return pinImage;
 			};
-			function initialize() {
-			  var myLatlng = new google.maps.LatLng(endangered[0][5], endangered[0][6]);
-			  var mapOptions = {
-			    zoom: 5,
-			    center: myLatlng,
-			    mapTypeId: google.maps.MapTypeId.TERRAIN
-			  };
-			  imaps.map = new google.maps.Map(document.getElementById('main-map'),
-			      mapOptions);
-		        //tampilkan
-		        for (key in endangered){
+			function showMarker(){
+				for (key in endangered){
 		        	var contentInfo = '<div class="info-punah"><p>Bahasa : '+endangered[key][1]+'</p>'+
 		        						'<p>Status Bahasa: '+endangered[key][2]+'</p>'+
 		        						'<p>Jumlah Penutur : '+endangered[key][3]+'</p>'+
@@ -208,6 +203,16 @@
                        }
                  })(marker, contentInfo));
 		        }
+			}
+			function initialize() {
+			  var myLatlng = new google.maps.LatLng(endangered[0][5], endangered[0][6]);
+			  var mapOptions = {
+			    zoom: 5,
+			    center: myLatlng,
+			    mapTypeId: google.maps.MapTypeId.TERRAIN
+			  };
+			  imaps.map = new google.maps.Map(document.getElementById('main-map'),
+			      mapOptions);
 			};
 			function clearLayer(){
 				while(provinces.length!=0){
@@ -260,14 +265,39 @@
 			}			
 			function changeProvince(){
 				showArea(document.getElementById("selProvinsi").value);
+				//show bahasa list
+				var strcontent = '';
+				var listBhs = getBahasaFromProvince(document.getElementById("selProvinsi").value);
+				for (key in listBhs){
+					for (key in endangered){
+						if(endangered[key][0] == listBhs[key]){
+							strcontent += '<li onclick="detailIdBahasa('+endangered[key][0]+')">'+endangered[key][1]+'</li>';
+						}
+					}
+				}
+				$('#listBahasa').html(strcontent);
+				$('#bodyBahasa').show();
+			}
+			function detailIdBahasa(idBahasa){
+				setAreaFromIdBahasa(idBahasa);
+				var strcontent = '';
+				var listEvent = getEventInfo(idBahasa);
+				//console.log(listEvent[0]);
+				for (key in listEvent){
+					strcontent += '<li>'+listEvent[key][4]+' '+listEvent[key][5]+' di '+listEvent[key][1]+', '+listEvent[key][3]+' "'+listEvent[key][2]+'" </li>';
+				}
+				$('#listEvent').html(strcontent);
+				clickKanan();
 			}
 			function getEventInfo(idBahasa){
+				var retval = new Array();
 				for (key in data_event){
 					if(data_event[key][7] == idBahasa){
-						return data_event[key];
-						break;
+						retval.push(data_event[key]);
 					}
 				}						
+
+				return retval;
 			}
 			function setAreaFromIdBahasa(idBahasa){
 				var retval = new Array();
