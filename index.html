@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html class=" js " lang="en">
+	<head>
+		<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+		<meta charset="UTF-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"> 
+		<meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+		<title>Peta Bahasa</title>
+		<meta name="description" content="Peta Bahasa">
+		<meta name="keywords" content="sliding menu, pushing menu, navigation, responsive, menu, css, jquery">
+		<meta name="author" content="Codrops">
+		<!--link rel="shortcut icon" href="http://tympanus.net/Blueprints/favicon.ico"-->
+		<link rel="stylesheet" type="text/css" href="css/default.css">
+		<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+		<link rel="stylesheet" type="text/css" href="css/bootstrap-theme.min.css">
+		<script src="js/modernizr.js"></script>
+	</head>
+	<body>
+		<nav class="cbp-spmenu-open cbp-spmenu cbp-spmenu-vertical cbp-spmenu-right" id="cbp-spmenu-s2">
+			<div><span class="label label-danger" id="closeRight">close</span></div>
+		</nav>
+		<nav class="cbp-spmenu cbp-spmenu-vertical cbp-spmenu-left" id="cbp-spmenu-s1">
+			<div class="panel panel-default">
+			  <div class="panel-heading pointer" onclick="$('#bodyCari').slideToggle()">Pencarian</div>
+			  <div class="panel-body" id="bodyCari">
+			  	<!--div class="form-group">
+					<input type="text" class="form-control" placeholder="Search">
+				</div-->
+				<select class="form-control" id="selProvinsi">
+				  <option>Jawa Barat</option>
+				  <option>Jawa Tengah</option>
+				  <option>Jawa Timur</option>
+				  <option>Banten</option>
+				  <option>Jakarta</option>
+				</select>
+				<h3>Kondisi :</h3>
+			    <div class="radio">
+				  <label>
+				    <input type="radio" name="optionsRadios" id="optRad1" value="opt1" checked>
+				    Semua
+				  </label>
+				</div>
+				<div class="radio">
+				  <label>
+				    <input type="radio" name="optionsRadios" id="optRad2" value="opt2">
+				    Punah
+				  </label>
+				</div>
+				<div class="radio">
+				  <label>
+				    <input type="radio" name="optionsRadios" id="optRad2" value="opt2">
+				    Aktif (Non Punah)
+				  </label>
+				</div>
+			  </div>
+			</div>
+			<div class="panel panel-default">
+			  <div class="panel-heading pointer" onclick="$('#bodyBahasa').slideToggle()">Bahasa</div>
+			  <div class="panel-body panelmenu" id="bodyBahasa">
+			    <ul class="panelBahasa">
+			    	<li>Bahasa 1</li>
+			    	<li>Bahasa 2</li>
+			    	<li>Bahasa 3</li>
+			    </ul>
+			  </div>
+			</div>
+			<div class="panel panel-default">
+			  <div class="panel-heading pointer" onclick="$('#bodyDialek').slideToggle()">Dialek</div>
+			  <div class="panel-body panelmenu" id="bodyDialek">
+			    <ul class="panelDialek">
+			    	<li>Dialek 1</li>
+			    	<li>Dialek 2</li>
+			    	<li>Dialek 3</li>
+			    	<li>Dialek 3</li>
+			    	<li>Dialek 3</li>
+			    	<li>Dialek 3</li>
+			    </ul>
+			  </div>
+			</div>
+			<div class="panel panel-default">
+			  <div class="panel-heading pointer" onclick="$('#bodyTranslasi').slideToggle()">Translasi Kata</div>
+			  <div class="panel-body" id="bodyTranslasi">
+			    <div class="form-group">
+				    <label for="translasi-kata">Masukkan kata</label>
+					<input type="text" class="form-control" id="translasi-kata" name="translasi-kata" placeholder="kata yang ingin dicari">
+					<button  type="button" class="btn btn-success btn-sm btnTranslasi" id="btnTranslasi">Translasi !</button>
+				</div>
+			  </div>
+			</div>
+		</nav>
+		<div class="main-map" id="main-map">
+			
+		</div>
+		<section id="btnMenu">
+			<button class="" id="showLeft">Lihat Menu</button>
+		</section>
+		<!-- Classie - class helper functions by @desandro https://github.com/desandro/classie -->
+		<script src="js/classie.js"></script>
+		<script src="js/jquery-1.11.1.min.js"></script>
+		<script src="js/bootstrap.min.js"></script>
+		<script>
+			var menuLeft = document.getElementById( 'cbp-spmenu-s1' ),
+				menuRight = document.getElementById( 'cbp-spmenu-s2' ),
+				showLeft = document.getElementById( 'showLeft' ),
+				closeRight = document.getElementById( 'closeRight' ),
+				btnMenu = document.getElementById( 'btnMenu' ),
+				body = document.body;
+				closeRight.onclick = function(){
+					classie.remove(menuRight, 'cbp-spmenu-open' );
+				};
+				showLeft.onclick = function() {
+					classie.toggle( this, 'active' );
+					classie.toggle( btnMenu, 'active' );
+					classie.toggle( menuLeft, 'cbp-spmenu-open' );
+					if (classie.has( this, 'active' ))
+						this.innerHTML = "Tutup Menu";
+					else
+						this.innerHTML = "Lihat Menu";
+				};
+		</script>
+	</body>
+</html>
