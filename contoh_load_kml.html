@@ -9,21 +9,21 @@
       #map_canvas { height: 100% }
     </style>
     <!-- include the Maps API JavaScript using a script tag -->
-    <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?key=AIzaSyAaWOu7N4OX8BlYUwZhvWP2V0P6YQryN9Y&sensor=true"></script>
+    <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?v=3.exp"></script>
     <script type="text/javascript">
     function initialize()
     {
         <!-- create a JavaScript object literal to hold a number of map properties -->
         var myOptions =
         {
-            center: new google.maps.LatLng(-34.397, 150.644),
+            center: new google.maps.LatLng(-3.1514, 126.2713),
             zoom: 8,
             mapTypeId: google.maps.MapTypeId.ROADMAP,
             fillColor: '#0000ff'
         };
         <!-- a JavaScript function to create a "map" object -->
         var map = new google.maps.Map(document.getElementById("map_canvas"),myOptions);
-        var myLayer = new google.maps.KmlLayer('http://www.domain.com/gmaps/1.kml',{suppressInfoWindows: true,map: map});
+        var myLayer = new google.maps.KmlLayer('http://localhost/gis/Jawa Barat.kml',{suppressInfoWindows: true,map: map});
         google.maps.event.addListener
         (
             myLayer,"mouseover",function()
