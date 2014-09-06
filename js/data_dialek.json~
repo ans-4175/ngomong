@@ -1,0 +1,2 @@
+// No, Nama Dialek, Status, Jumlah Penutur, Status Penutur, Latitude, Longitude, Lokasi, ID Bahasa
+var data_dialek = [["1","Solo-Yogya","Normal","32000","J","-0.4531","119.9816","Jawa","1"],["2","Pekalongan","Normal","30000","J","-0.3076","131.2207","Jawa","2"],["3","Wonosobo","Normal","30000","J","0.4888","120.8935","Jawa","3"],["4","Banyumas","Normal","15000","J","0.8953","120.2838","Jawa","4"], ["5","Tegal","Normal","14000","J","-4.2054","137.031","Jawa","5"]]

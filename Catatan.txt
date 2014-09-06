@@ -1,0 +1,21 @@
+Basisdata:
+1. Area: file .kml
+	id
+	nama area
+	jenis area {provinsi, kabupaten}
+	latitude, longitude
+2. Bahasa
+	id
+	nama bahasa
+	status bahasa
+	jumlah penutur
+	status penutur
+	latitude (optional)
+	longitude (optional)
+	lokasi
+3. Area-Bahasa (n-m)
+	id bahasa
+	id area
+4. Event
+	id
+	
