@@ -49,11 +49,11 @@
 			  <div class="panel-heading pointer" onclick="$('#bodyCari').slideToggle()">Pencarian</div>
 			  <div class="panel-body" id="bodyCari">
 				<label for="selProvinsi">Pilih Provinsi:</label>
-				<select class="form-control" id="selProvinsi">
+				<select class="form-control" id="selProvinsi" onchange="genListBahasa(this.value)">
 				  <option>Semua Provinsi</option>
 				</select>
 				<label for="selCariBahasa">Pilih Bahasa:</label>
-				<select class="form-control" id="selProvinsi">
+				<select class="form-control" id="selCariBahasa">
 				  <option>Semua Bahasa</option>
 				</select>
 				<label for="selVitalitas">Vitalitas Bahasa:</label>
@@ -454,6 +454,15 @@
 					}
 				}
 				return idProvince;
+			}
+			function genListBahasa(namaProvince){
+				var listB = getBahasaFromProvince(namaProvince);
+				var str = '';
+				for (key in listB){
+					var bhs = searchBahasabyId(listB[key]);
+					str += '<option>'+bhs[1]+'</option>';
+				}
+				$('#selCariBahasa').html(str);
 			}
 			function getBahasaFromProvince(namaProvince){
 				var idProvince = getIdProvince(namaProvince);
