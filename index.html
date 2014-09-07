@@ -320,16 +320,14 @@
 				});
 
 				  provinces.push(kmlLayer);
-				  /*google.maps.event.addListener(kmlLayer, 'click', function(kmlEvent) {
+				  google.maps.event.addListener(kmlLayer, 'click', function(kmlEvent) {
 					alert(kmlLayer.name);
-				  });*/
-				  google.maps.event.addListener(kmlLayer, 'mouseover', (function(kmlLayer, contentInfo) {
+				  });
+				  /*google.maps.event.addListener(kmlLayer, 'click', (function(kmlLayer, contentInfo) {
 					  return function() {
-						 infowindow.setContent(contentInfo);
-						 infowindow.open(imaps.map, marker);
-						 /*infobox.open(imaps.map, kmlLayer);*/
+						 infobox.open(imaps.map, kmlLayer);
 					  }
-				 })(kmlLayer, contentInfo));
+				 })(kmlLayer, contentInfo));*/
 				
 			}
 			function removeLayer(name){
