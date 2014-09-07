@@ -144,6 +144,11 @@ a:hover {
 .cbp-spmenu-right.cbp-spmenu-open {
 	right: 0px;
 }
+.cbp-spmenu-push-toright {
+	left: 240px;
+	overflow-x: hidden;
+	position: relative;
+}
 
 /* Transitions */
 
@@ -212,7 +217,7 @@ a:hover {
 	/*background-color: #00A1CC*/;
 }
 
-#bodyTranslasi, #bodyDialek, #bodyBahasa{
+#bodyTranslasi, #bodyDialek, #bodyBahasa, #bodyEvent{
 	display: none;
 }
 

@@ -1,0 +1,328 @@
+commit 1ceae3dfc580196664d8e93b1337b99ba96fa1ac
+Author: ans4175 <ans4175@gmail.com>
+Date:   Sun Sep 7 10:00:27 2014 +0700
+
+    infobox marker diubah rounded dan opacity
+
+commit 88e4b93bc2be2795f56dde14a8b8c66cb9c6b7ee
+Author: ans4175 <ans4175@gmail.com>
+Date:   Sun Sep 7 09:33:53 2014 +0700
+
+    beresin select semua provinsi
+
+commit 477dcec8fae501b233e6ce0295351f8cc47005bb
+Author: ans4175 <ans4175@gmail.com>
+Date:   Sun Sep 7 09:01:58 2014 +0700
+
+    beresin translasi bahasa
+
+commit 9139cb1e2d17a53a2098e6a5200afaca5e163590
+Author: ans4175 <ans4175@gmail.com>
+Date:   Sun Sep 7 08:08:36 2014 +0700
+
+    munculin semua marker bahasa di initialize page
+
+commit 7d84e4a5940c2c77030d6e4535f143987ed2ce3c
+Author: ans4175 <ans4175@gmail.com>
+Date:   Sun Sep 7 08:04:02 2014 +0700
+
+    nyatuin marker saat ngeklik bahasa
+
+commit af8b7421ff856f7976a2f237b70511389f862125
+Author: ans4175 <ans4175@gmail.com>
+Date:   Sun Sep 7 07:33:36 2014 +0700
+
+    beresin generate opsi provinsi
+
+commit 5d3a4049abb61c2c0304beeb0fee1d7807322775
+Merge: 704c281 2d9f7b6
+Author: ans4175 <ans4175@gmail.com>
+Date:   Sun Sep 7 01:02:36 2014 +0700
+
+    menyatukan provinsi dan marker, belum bahasa
+
+commit 704c281122833b42cd9ab1acc99693a1f6eaa8c3
+Author: ans4175 <ans4175@gmail.com>
+Date:   Sun Sep 7 01:00:44 2014 +0700
+
+    marker dari provinsi, belum marker dari bahasa
+
+commit 2d9f7b6860537e23cfc9ce8086b0ab3fab9b686c
+Author: ericagon <eric4g1@gmail.com>
+Date:   Sun Sep 7 00:51:22 2014 +0700
+
+    Delete data_kata.json~
+
+commit b18538d509e7fbff104d8d8bd8c787522a8ec5b6
+Author: ericagon <eric4g1@gmail.com>
+Date:   Sun Sep 7 00:51:05 2014 +0700
+
+    Delete data_bahasa.json~
+
+commit 660131f50498293a60aeda6fb8210cacd8d66ba3
+Author: ericagon <eric4g1@gmail.com>
+Date:   Sun Sep 7 00:50:12 2014 +0700
+
+    Delete data_dialek.json~
+
+commit 3f3948dcae6525622d15b45dca4866d7fa765899
+Author: ericagon <eric4g1@gmail.com>
+Date:   Sun Sep 7 00:46:41 2014 +0700
+
+    fix data_ kata.json
+
+commit fb0cb8ae0a921105534f991fd173c24cf9ca13cf
+Author: ericagon <eric4g1@gmail.com>
+Date:   Sun Sep 7 00:26:50 2014 +0700
+
+    data dialek dan kata
+
+commit 861387111cd176ba62d04facda11e573b55f45b2
+Author: alfian <alfian.code@gmail.com>
+Date:   Sat Sep 6 21:44:33 2014 +0700
+
+    + tambah converter (tapi masih bug)
+    + tambahin data area
+    
+    Signed-off-by: alfian <alfian.code@gmail.com>
+
+commit 7a632a313586c96c1416cbbd7f5011c4bc4952c6
+Merge: 324265c ea07221
+Author: alfian <alfian.code@gmail.com>
+Date:   Sat Sep 6 21:25:57 2014 +0700
+
+    Merge branch 'master' of https://github.com/ans-4175/ngomong
+
+commit 324265c5ce9eb3792b0090ffbb9099837f749763
+Author: alfian <alfian.code@gmail.com>
+Date:   Sat Sep 6 21:25:36 2014 +0700
+
+    + Ada dua fungsi utama yang jadi tambahan: 1. getDialekFrom... buat ngambil data dialek dari id bahasa. Belum dimasukkin ke onClicknya. 2. getPadananKata buat translasi kata dari suatu kata. Udah dimasukkin ke tombol translasi
+    
+    + data json berupa data_kata, data_dialek, data_padanan
+    
+    Signed-off-by: alfian <alfian.code@gmail.com>
+
+commit ea0722126b5d23aefbd2d3f35599a7429daa3f56
+Author: ericagon <eric4g1@gmail.com>
+Date:   Sat Sep 6 21:12:44 2014 +0700
+
+    data area indonesia
+
+commit 625ab106c2dbf90579fac7a40eeb717e910791a6
+Author: ans4175 <ans4175@gmail.com>
+Date:   Sat Sep 6 20:52:25 2014 +0700
+
+    nyatuin list event dengan province
+
+commit 9f5e8eb3020c2e8fc93a9f4ba19c62c91a0d351a
+Author: ans4175 <ans4175@gmail.com>
+Date:   Sat Sep 6 20:18:40 2014 +0700
+
+    pasang list bahasa dari pilih cari
+
+commit 7f23677972f342c9a7443c5ae77ec51f9f96718f
+Merge: 1360883 188673f
+Author: ans4175 <ans4175@gmail.com>
+Date:   Sat Sep 6 20:05:52 2014 +0700
+
+    Merge branch 'master' of https://github.com/ans-4175/ngomong
+
+commit 1360883abec03023b275519a918f4f321a506a84
+Author: ans4175 <ans4175@gmail.com>
+Date:   Sat Sep 6 20:05:48 2014 +0700
+
+    ubah tampilan menu
+
+commit 188673fa48b133a974c312bd0d971b9dbb98dadb
+Merge: 048dcc2 bdee3aa
+Author: alfian <alfian.code@gmail.com>
+Date:   Sat Sep 6 20:04:37 2014 +0700
+
+    Merge branch 'master' of https://github.com/ans-4175/ngomong
+    
+    Conflicts:
+    	index.html
+    
+    Signed-off-by: alfian <alfian.code@gmail.com>
+
+commit 048dcc2c271af9274d76be091a02863fbf0635b7
+Author: alfian <alfian.code@gmail.com>
+Date:   Sat Sep 6 20:03:09 2014 +0700
+
+    + get bahasa dan get area
+    
+    Signed-off-by: alfian <alfian.code@gmail.com>
+
+commit bdee3aac48f8e7b2f9dd50591cbb49d05bcae8ec
+Author: ans4175 <ans4175@gmail.com>
+Date:   Sat Sep 6 19:51:41 2014 +0700
+
+    balikin bahasa dan dialek ke list
+
+commit 39597c50c61bc0639458f4671815272191f098a7
+Author: ans4175 <ans4175@gmail.com>
+Date:   Sat Sep 6 19:27:59 2014 +0700
+
+    tampilan kanan disamain kiri
+
+commit 8448a2ba1c3c6faabd5a1f8f71be522a2c7473f0
+Merge: 0f410b4 db7e992
+Author: ans4175 <ans4175@gmail.com>
+Date:   Sat Sep 6 18:56:12 2014 +0700
+
+    mergin event dan tampilan dummy
+
+commit 0f410b40457033a6f89e0df5bab6163bf1b9e95c
+Author: ans4175 <ans4175@gmail.com>
+Date:   Sat Sep 6 18:52:32 2014 +0700
+
+    beresin tampilan di kanan
+
+commit db7e992cd049069bc681f69d574bb62b824f57b4
+Author: alfian <alfian.code@gmail.com>
+Date:   Sat Sep 6 18:52:28 2014 +0700
+
+    + data event
+    
+    Signed-off-by: alfian <alfian.code@gmail.com>
+
+commit ccb775f7199356d8c42351c9f61b0f92c970cbf9
+Author: alfian <alfian.code@gmail.com>
+Date:   Sat Sep 6 18:46:21 2014 +0700
+
+    + data event
+    
+    Signed-off-by: alfian <alfian.code@gmail.com>
+
+commit 9219bb00b8c15406c95fe540f6b34a47f6bd5427
+Merge: 4bf5bc4 aaf18e5
+Author: ans4175 <ans4175@gmail.com>
+Date:   Sat Sep 6 18:43:15 2014 +0700
+
+    mergin tampilan dan layering
+
+commit e85ae51cedb89fe816e85eea0ca1880a69f2ced2
+Merge: 4bf5bc4 aaf18e5
+Author: Ahmad Anshorimuslim Syuhada <ans4175@ans4175-PC>
+Date:   Sat Sep 6 18:42:11 2014 +0700
+
+    mergin tampilan dan layering
+
+commit 4bf5bc405f3b70906bf9b1dc49e79f4f80219e43
+Author: Ahmad Anshorimuslim Syuhada <ans4175@ans4175-PC>
+Date:   Sat Sep 6 18:35:08 2014 +0700
+
+    beresin tampilan di kiri (pasang button dan checkbox)
+
+commit aaf18e5d4b899a6878ff53e7f2f923ba39c0bde5
+Author: alfian <alfian.code@gmail.com>
+Date:   Sat Sep 6 18:24:14 2014 +0700
+
+    + integrasi provinsi dan area
+    
+    Signed-off-by: alfian <alfian.code@gmail.com>
+
+commit 5dd4b5f704a92933d763e73b410e3a0d896207a3
+Merge: c6847c8 3ea0b8b
+Author: Ahmad Anshorimuslim Syuhada <ans4175@ans4175-PC>
+Date:   Sat Sep 6 17:49:47 2014 +0700
+
+    Merge branch 'master' of https://github.com/ans-4175/ngomong
+
+commit c6847c800bdb8b9106b37dac8dfc7f7e1ff1ad04
+Author: Ahmad Anshorimuslim Syuhada <ans4175@ans4175-PC>
+Date:   Sat Sep 6 17:49:04 2014 +0700
+
+    persebaran data punah berwarna dan keterangan
+
+commit 3ea0b8b7f4c6bebd1a3bcb7b8247319214db0bfc
+Author: alfian <alfian.code@gmail.com>
+Date:   Sat Sep 6 17:37:12 2014 +0700
+
+    + data json
+    
+    Signed-off-by: alfian <alfian.code@gmail.com>
+
+commit 49696156ce46f3e5956eba0bd7699548bef0244a
+Merge: a78e0f7 13c197f
+Author: alfian <alfian.code@gmail.com>
+Date:   Sat Sep 6 17:34:10 2014 +0700
+
+    Merge branch 'master' of https://github.com/ans-4175/ngomong
+
+commit a78e0f713767a85e9f5ea4de553cd096479fefc0
+Author: alfian <alfian.code@gmail.com>
+Date:   Sat Sep 6 17:33:54 2014 +0700
+
+    + json
+    
+    Signed-off-by: alfian <alfian.code@gmail.com>
+
+commit 13c197feda7349b0f741cc654a2a48322f39c8d7
+Author: Ahmad Anshorimuslim Syuhada <ans4175@ans4175-PC>
+Date:   Sat Sep 6 17:26:41 2014 +0700
+
+    persebaran data punah
+
+commit 4a60b878cef107a029104d522c27b71cee5db7ab
+Author: Ahmad Anshorimuslim Syuhada <ans4175@ans4175-PC>
+Date:   Sat Sep 6 16:20:44 2014 +0700
+
+    beresin struktur folder
+
+commit ede3c9c792872651030fe3a6133de805b8a9661c
+Merge: 5e9ff4f 4e18ad3
+Author: alfian <alfian.code@gmail.com>
+Date:   Sat Sep 6 16:18:34 2014 +0700
+
+    Merge branch 'master' of https://github.com/ans-4175/ngomong
+
+commit 5e9ff4f071b09703a382cb2cb8eb87d9e0abaa9d
+Author: alfian <alfian.code@gmail.com>
+Date:   Sat Sep 6 16:17:55 2014 +0700
+
+    bug fixing
+    Signed-off-by: alfian <alfian.code@gmail.com>
+
+commit b8970048cfe33e84967592a766782529b7188e49
+Author: alfian <alfian.code@gmail.com>
+Date:   Sat Sep 6 15:17:08 2014 +0700
+
+    +asd
+    
+    Signed-off-by: alfian <alfian.code@gmail.com>
+
+commit 4e18ad35a79e00bd6f92ea02968cc0a5f9370f86
+Author: Ahmad Anshorimuslim Syuhada <ans4175@ans4175-PC>
+Date:   Sat Sep 6 15:10:58 2014 +0700
+
+    layout disatuin dengan map
+
+commit 7fa805baa0f7a0ebca9e1f72c343be070c6ab8ec
+Author: alfian <alfian.code@gmail.com>
+Date:   Sat Sep 6 15:02:29 2014 +0700
+
+    + add contoh google map api
+    
+    Signed-off-by: alfian <alfian.code@gmail.com>
+
+commit ce71391c42238b6ab606cb9e7672291b2ac31ea8
+Author: alfian <alfian.code@gmail.com>
+Date:   Sat Sep 6 14:48:32 2014 +0700
+
+    + json data bahasa
+    
+    Signed-off-by: alfian <alfian.code@gmail.com>
+
+commit 2e250f06e566dca37641a48134061a2f04d2205d
+Author: Ahmad Anshorimuslim Syuhada <ans4175@ans4175-PC>
+Date:   Sat Sep 6 14:17:56 2014 +0700
+
+    layout kosong
+
+commit 4a6cb5dd7a54808e2507d3140c1debbda979e16c
+Author: Ahmad Anshorimuslim Syuhada <ans4175@gmail.com>
+Date:   Sat Sep 6 11:22:04 2014 +0700
+
+    Initial commit
