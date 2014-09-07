@@ -15,6 +15,7 @@
 		<link rel="stylesheet" type="text/css" href="css/bootstrap-theme.min.css">
 		<script src="js/modernizr.js"></script>
 		<script src="https://maps.googleapis.com/maps/api/js?v=3.exp"></script>
+		<script type="text/javascript" src="http://google-maps-utility-library-v3.googlecode.com/svn/trunk/infobox/src/infobox.js"></script>
 	</head>
 	<body>
 		<nav class="cbp-spmenu cbp-spmenu-vertical cbp-spmenu-right" id="cbp-spmenu-s2">
@@ -180,13 +181,6 @@
 			    return pinImage;
 			};
 			function showMarker(dataB){
-	        	var contentInfo = '<div class="info-punah"><p>Bahasa : '+dataB[1]+'</p>'+
-	        						'<p>Status Bahasa: '+dataB[2]+'</p>'+
-	        						'<p>Jumlah Penutur : '+dataB[3]+'</p>'+
-	        						'<p>Status Penutur : '+dataB[4]+'</p>'+
-	        						'<p>Provinsi : '+dataB[7]+'</p>';
-	        	var infowindow = new google.maps.InfoWindow();
-	        	imaps.listinfo.push(contentInfo);
 	        	//
 			    var pinImage = getPin(dataB[2],dataB[4])
 	          var marker = new google.maps.Marker({
@@ -197,10 +191,32 @@
 	          });
 	          imaps.listmarkers.push(marker);
 	          //
+	        	var contentInfo = '<div class="info-punah"><p>Bahasa : '+dataB[1]+'</p>'+
+	        						'<p>Status Bahasa: '+dataB[2]+'</p>'+
+	        						'<p>Jumlah Penutur : '+dataB[3]+'</p>'+
+	        						'<p>Status Penutur : '+dataB[4]+'</p>'+
+	        						'<p>Provinsi : '+dataB[7]+'</p>';
+	        	/* var infowindow = new google.maps.InfoWindow();
+	        	imaps.listinfo.push(contentInfo); */
+	          var infobox = new InfoBox({
+		         content: contentInfo,
+		         disableAutoPan: false,
+		         maxWidth: 130,
+		         pixelOffset: new google.maps.Size(-100, 0),
+		         zIndex: null,
+		         boxStyle: {
+		            opacity: 0.8
+		        },
+		        closeBoxMargin: "12px 4px 2px 2px",
+		        closeBoxURL: "http://www.google.com/intl/en_us/mapfiles/close.gif",
+		        infoBoxClearance: new google.maps.Size(1, 1)
+		    });
+	          //
 	          google.maps.event.addListener(marker, 'click', (function(marker, contentInfo) {
 	               return function() {
-	                 infowindow.setContent(contentInfo);
-	                 infowindow.open(imaps.map, marker);
+	                 /*infowindow.setContent(contentInfo);
+	                 infowindow.open(imaps.map, marker);*/
+	                 infobox.open(imaps.map, marker);
 	               }
 	         })(marker, contentInfo));
 			}
