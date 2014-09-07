@@ -45,6 +45,7 @@
 			</div>
 		</nav>
 		<nav class="cbp-spmenu-open cbp-spmenu cbp-spmenu-vertical cbp-spmenu-left" id="cbp-spmenu-s1">
+			<div class="judul-peta"><span style="color:#e74c3c">Peta</span> <span style="color:#ecf0f1">Bahasa</span></div>
 			<div class="panel panel-default">
 			  <div class="panel-heading pointer" onclick="$('#bodyCari').slideToggle()">Pencarian</div>
 			  <div class="panel-body" id="bodyCari">
@@ -86,7 +87,7 @@
 				  </label>
 				</div>
 				<br />
-				<button type="button" class="btn btn-primary" id="btnSeleksi" onclick="changeProvince()">Cari !</button>
+				<button type="button" class="btn btn-primary" id="btnSeleksi" onclick="changeFilter()">Cari !</button>
 			  </div>
 			</div>
 			<div class="panel panel-default">
@@ -315,8 +316,10 @@
 					}
 				};		
 			}			
-			function changeProvince(){
+			function changeFilter(){
 				var provVal = document.getElementById("selProvinsi").value;
+				var bhsVal = document.getElementById("selCariBahasa").value;
+				var vitVal = document.getElementById("selVitalitas").value;
 				var optVal = $('input[name="optionsRadios"]:checked').val();
 				var pasang = false;
 				//show area
