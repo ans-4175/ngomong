@@ -339,7 +339,19 @@
 				$('#listDialek').html(strcontent2);
 				$('#bodyDialek').show();
 			}
+			function searchBahasabyId(idb){
+				var retval;
+				for (key in data_bahasa){
+					if (data_bahasa[key][0]==idb){
+						retval=data_bahasa[key];
+						break;
+					}
+				}
+				
+				return retval;
+			}
 			function detailIdBahasa(idBahasa){
+				clearMarker();
 				setAreaFromIdBahasa(idBahasa);
 				//event
 				var strcontent = ''; var strcontent2 = '';
@@ -351,12 +363,14 @@
 				$('#listEvent').html(strcontent);
 				showKanan();
 				//dialek
-				var listDialek = getDialekFromIdBahasa(data_bahasa[key][0]);
+				var listDialek = getDialekFromIdBahasa(idBahasa);
 				for (key in listDialek){
 					strcontent2 += '<li>'+listDialek[key][1]+'</li>';
 				}
 				$('#listDialek').html(strcontent2);
 				$('#bodyDialek').show();
+				//marker
+				showMarker(searchBahasabyId([idBahasa]));
 			}
 			function getEventInfo(idBahasa){
 				var retval = new Array();
@@ -375,6 +389,7 @@
 						retval.push(data_area_mapping[key][1]);
 					}
 				}
+				//console.log(retval);
 				var listArea = new Array();
 				for (key in retval){
 					for (area in data_area){
