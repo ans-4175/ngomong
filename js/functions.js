@@ -27,6 +27,19 @@ function getPin(stat,label){
     
     return pinImage;
 };
+function infoMarker(idBahasa){
+	//get area
+	console.log(idBahasa);
+	for (keyd in data_area_mapping){
+		console.log('keyd='+data_area_mapping[keyd][0]);
+		if (data_area_mapping[keyd][0]==idBahasa){
+			var idArea = data_area_mapping[keyd][1];
+			break;
+		}
+	}
+	var listB = getListBahasaFromProvince(idArea);
+	alert(listB.length);
+}
 function showMarker(dataB){
 	//
     var pinImage = getPin(dataB[2],dataB[4])
@@ -61,13 +74,11 @@ function showMarker(dataB){
     infoBoxClearance: new google.maps.Size(1, 1)
 });
   //
-  /*google.maps.event.addListener(marker, 'click', (function(marker, contentInfo) {
+  google.maps.event.addListener(marker, 'click', (function(marker, contentInfo) {
        return function() {
-         infowindow.setContent(contentInfo);
-         infowindow.open(imaps.map, marker);
-         infobox.open(imaps.map, marker);
+         infoMarker(dataB[0]);
        }
- })(marker, contentInfo));*/
+ })(marker, contentInfo));
    google.maps.event.addListener(marker, 'mouseover', (function(marker, contentInfo) {
        return function() {
          infobox.open(imaps.map, marker);
@@ -226,7 +237,7 @@ function changeFilter(){
 	$('#bodyBahasa').show();
 	//dialek
 	$('#listDialek').html(strcontent2);
-	$('#bodyDialek').show();
+	//$('#bodyDialek').show();
 	showKanan();
 }
 function changeFilter2(){
@@ -244,6 +255,7 @@ function changeFilter2(){
 		}
 	}else{
 		listBhs.push(getIdBahasa(bhsVal));
+		setAreaFromIdBahasa(getIdBahasa(bhsVal));
 	}
 	for (key in listBhs){
 		for (key2 in data_bahasa){

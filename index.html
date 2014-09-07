@@ -162,7 +162,14 @@
 			  $('#selProvinsi').html(strcontent);
 			  //marker_bahasa
 			  strcontent = '';
-			  for (key in data_bahasa){
+			  var dt_bhs = data_bahasa;
+			  dt_bhs.sort(function(a, b){
+				    if(a[1] < b[1]) return -1;
+				    if(a[1] > b[1]) return 1;
+				    return 0;
+				});
+			  console.log(dt_bhs);
+			  for (key in dt_bhs){
 			  	showMarker(data_bahasa[key]);
 			  	strcontent += '<option>'+data_bahasa[key][1]+'</option>';
 			  }
