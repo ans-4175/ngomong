@@ -271,6 +271,7 @@ function changeFilter2(){
 		}
 	}else{
 		listBhs.push(getIdBahasa(bhsVal));
+		setAreaFromIdBahasa(getIdBahasa(bhsVal));
 	}
 	for (key in listBhs){
 		for (key2 in data_bahasa){
