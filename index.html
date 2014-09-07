@@ -292,7 +292,14 @@
 				clearMarker();
 				//show bahasa list
 				var strcontent = ''; var strcontent2 = '';
-				var listBhs = getBahasaFromProvince(document.getElementById("selProvinsi").value);
+				var listBhs = new Array();
+				if (provVal == 'Semua Provinsi') {
+					for (keys in data_bahasa){
+						listBhs.push(data_bahasa[keys][0]);
+					}
+				}else{
+					listBhs = getBahasaFromProvince(document.getElementById("selProvinsi").value);
+				}
 				for (key in listBhs){
 					for (key2 in data_bahasa){
 						if (optVal == 'opt1'){
