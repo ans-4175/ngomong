@@ -32,12 +32,12 @@
 				</div-->
 				<select class="form-control" id="selProvinsi">
 				  <option>Semua Provinsi</option>
-				  <option>Banten</option>
+				  <!--option>Banten</option>
 				  <option>Jakarta</option>
 				  <option>Jawa Barat</option>
 				  <option>Jawa Tengah</option>
 				  <option>Yogyakarta</option>
-				  <option>Jawa Timur</option>
+				  <option>Jawa Timur</option-->
 				</select>
 				<h3>Kondisi :</h3>
 			    <div class="radio">
@@ -217,6 +217,12 @@
 			  };
 			  imaps.map = new google.maps.Map(document.getElementById('main-map'),
 			      mapOptions);
+			  //data provinsi
+			  var strcontent = $('#selProvinsi').html();
+			  for (var i=0; i<33; i++){
+			  	strcontent += '<option>'+data_area[i][1]+'</option>';
+			  }
+			  $('#selProvinsi').html(strcontent);
 			};
 			function clearMarker(){
 				while(imaps.listmarkers.length!=0){
