@@ -1,0 +1,2 @@
+// no, nama subarea, id area, lokasi file kml
+var data_subarea = [["35","Kab. Bandung","12","https:\/\/dl.dropboxusercontent.com\/u\/45417138\/Bandung%20Selatan.kml\n"],["36","Kab. Bandung Barat","12","https:\/\/dl.dropboxusercontent.com\/u\/45417138\/Bandung%20Barat.kml\n"],["37","Kab. Aceh Barat","1","\n"],["38","Kab. Asahan","2","\n"],["39","Kab. Agam","3","\n"]]
