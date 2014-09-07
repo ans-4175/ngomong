@@ -73,6 +73,10 @@ a:hover {
 	font-size: 0.8em;
 }
 
+#showRight{
+	display: none;
+}
+
 #showLeft:hover, #showRight:hover {
 	background: #258ecd;
 }
