@@ -18,4 +18,7 @@ Basisdata:
 	id area
 4. Event
 	id
-	
+
+
+Issue:
+#get_dialek: get_area -> get_bahasa di area -> get_dialek di bahasa ==> sehingga muncul semua dialek untuk bahasa tersebut, walaupun tidak 
