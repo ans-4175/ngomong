@@ -94,10 +94,18 @@ function clearLayer(){
 	};				
 }
 function showArea(areaName){
+	var id_area;
 	clearLayer();
 	for (key in data_area){
 		if(data_area[key][1] == areaName){
 			addLayer(data_area[key][1], data_area[key][3]);
+			id_area = data_area[key][0];
+		}
+	}
+	
+	for (temp in data_subarea){
+		if(data_subarea[temp][2] == id_area){
+			addLayer(data_subarea[temp][1], data_subarea[temp][3]);
 		}
 	}		
 }
@@ -118,35 +126,11 @@ function addLayer(pName, location){
 		map: imaps.map,
 		name:pName
 	  });
-	  
-	  var contentInfo = '<div class="provinsi"><p>Provinsi : '+kmlLayer.name+'</p>';
-	  var infobox = new InfoBox({
-		 content: contentInfo,
-		 disableAutoPan: false,
-		 maxWidth: 130,
-		 pixelOffset: new google.maps.Size(-100, 0),
-		 zIndex: null,
-		 
-		 boxStyle: {
-			opacity: 0.9
-		},
-		closeBoxMargin: "12px 4px 2px 2px",
-		/*closeBoxURL: "http://www.google.com/intl/en_us/mapfiles/close.gif",*/
-		closeBoxURL: "",
-		infoBoxClearance: new google.maps.Size(1, 1)
-	});
 
 	  provinces.push(kmlLayer);
-	  /*google.maps.event.addListener(kmlLayer, 'click', function(kmlEvent) {
+	  google.maps.event.addListener(kmlLayer, 'click', function(kmlEvent) {
 		alert(kmlLayer.name);
-	  });*/
-	  google.maps.event.addListener(kmlLayer, 'mouseover', (function(kmlLayer, contentInfo) {
-		  return function() {
-			 infowindow.setContent(contentInfo);
-			 infowindow.open(imaps.map, marker);
-			 /*infobox.open(imaps.map, kmlLayer);*/
-		  }
-	 })(kmlLayer, contentInfo));
+	  });
 	
 }
 function removeLayer(name){
