@@ -18,44 +18,7 @@
 		<script type="text/javascript" src="http://google-maps-utility-library-v3.googlecode.com/svn/trunk/infobox/src/infobox.js"></script>
 	</head>
 	<body>
-		<!--nav class="cbp-spmenu cbp-spmenu-vertical cbp-spmenu-right" id="cbp-spmenu-s2">
-			<div><span class="label label-danger" id="closeRight">close</span></div>
-			<ul class="panelEvent" id="listEvent">
-				<li>Event atuhlah si lorem ipsum sit amet kono isoh ra iso</li>
-			</ul>
-		</nav-->
-		<nav class="cbp-spmenu-open cbp-spmenu cbp-spmenu-vertical cbp-spmenu-left" id="cbp-spmenu-s1">
-			<div class="panel panel-default">
-			  <div class="panel-heading pointer" onclick="$('#bodyCari').slideToggle()">Pencarian</div>
-			  <div class="panel-body" id="bodyCari">
-			  	<!--div class="form-group">
-					<input type="text" class="form-control" placeholder="Search">
-				</div-->
-				<select class="form-control" id="selProvinsi">
-				  <option>Semua Provinsi</option>
-				</select>
-				<h3>Kondisi :</h3>
-			    <div class="radio">
-				  <label>
-				    <input type="radio" name="optionsRadios" id="optRad1" value="opt1" checked>
-				    Semua
-				  </label>
-				</div>
-				<div class="radio">
-				  <label>
-				    <input type="radio" name="optionsRadios" id="optRad2" value="opt2">
-				    Punah
-				  </label>
-				</div>
-				<div class="radio">
-				  <label>
-				    <input type="radio" name="optionsRadios" id="optRad3" value="opt3">
-				    Aktif (Non Punah)
-				  </label>
-				</div>
-				<button type="button" class="btn btn-primary" id="btnSeleksi" onclick="changeProvince()">Cari !</button>
-			  </div>
-			</div>
+		<nav class="cbp-spmenu cbp-spmenu-vertical cbp-spmenu-right" id="cbp-spmenu-s2">
 			<div class="panel panel-default">
 			  <div class="panel-heading pointer" onclick="$('#bodyBahasa').slideToggle()">Bahasa</div>
 			  <div class="panel-body panelmenu" id="bodyBahasa">
@@ -80,6 +43,52 @@
 				</ul>
 			  </div>
 			</div>
+		</nav>
+		<nav class="cbp-spmenu-open cbp-spmenu cbp-spmenu-vertical cbp-spmenu-left" id="cbp-spmenu-s1">
+			<div class="panel panel-default">
+			  <div class="panel-heading pointer" onclick="$('#bodyCari').slideToggle()">Pencarian</div>
+			  <div class="panel-body" id="bodyCari">
+				<label for="selProvinsi">Pilih Provinsi:</label>
+				<select class="form-control" id="selProvinsi">
+				  <option>Semua Provinsi</option>
+				</select>
+				<label for="selCariBahasa">Pilih Bahasa:</label>
+				<select class="form-control" id="selProvinsi">
+				  <option>Semua Bahasa</option>
+				</select>
+				<label for="selVitalitas">Vitalitas Bahasa:</label>
+				<select class="form-control" id="selVitalitas">
+				  <option>Semua</option>
+				  <option>Aktif</option>
+				  <option>Vulnerable</option>
+				  <option>Definitely endangered</option>
+				  <option>Severely endangered</option>
+				  <option>Critically endangered</option>
+				  <option>Extinct</option>
+				</select>
+				<h3>Kondisi :</h3>
+			    <div class="radio">
+				  <label>
+				    <input type="radio" name="optionsRadios" id="optRad1" value="opt1" checked>
+				    Semua
+				  </label>
+				</div>
+				<div class="radio">
+				  <label>
+				    <input type="radio" name="optionsRadios" id="optRad2" value="opt2">
+				    Punah
+				  </label>
+				</div>
+				<div class="radio">
+				  <label>
+				    <input type="radio" name="optionsRadios" id="optRad3" value="opt3">
+				    Aktif (Non Punah)
+				  </label>
+				</div>
+				<br />
+				<button type="button" class="btn btn-primary" id="btnSeleksi" onclick="changeProvince()">Cari !</button>
+			  </div>
+			</div>
 			<div class="panel panel-default">
 			  <div class="panel-heading pointer" onclick="$('#bodyTranslasi').slideToggle()">Translasi Kata</div>
 			  <div class="panel-body" id="bodyTranslasi">
@@ -96,10 +105,10 @@
 		<div class="main-map" id="main-map"><!--PETA GMAP--></div>
 		<!--section id="btnMenu">
 			<button class="" id="showLeft">Lihat Menu</button>
-		</section>
-		<section id="btnEvent">
-			<button class="" id="showRight">Lihat Event</button>
 		</section-->
+		<section id="btnEvent">
+			<button class="" id="showRight">&gt;&gt;</button>
+		</section>
 		<!-- Classie - class helper functions by @desandro https://github.com/desandro/classie -->
 		<script src="js/classie.js"></script>
 		<script src="js/jquery-1.11.1.min.js"></script>
@@ -118,28 +127,28 @@
 			var menuLeft = document.getElementById( 'cbp-spmenu-s1' ),
 				menuRight = document.getElementById( 'cbp-spmenu-s2' ),
 				showLeft = document.getElementById( 'showLeft' ),
+				showRight = document.getElementById( 'showRight' ),
 				btnMenu = document.getElementById( 'btnMenu' ),
 				btnEvent = document.getElementById( 'btnEvent' ),
 				body = document.body;
-			/*function clickKanan(){
+			function clickKanan(){
 				classie.toggle(menuRight, 'cbp-spmenu-open' );
 				classie.toggle( showRight, 'active' );
 				classie.toggle( btnEvent, 'active' );
+				showRight.style.display = "none";
 				if (classie.has( showRight, 'active' ))
-					showRight.innerHTML = ">>";
-				else
-					showRight.innerHTML = "Lihat Event";
+					showRight.style.display = "none";
 			};
 			function showKanan(){
 				classie.add(menuRight, 'cbp-spmenu-open' );
 				classie.add( showRight, 'active' );
 				classie.add( btnEvent, 'active' );
-				showRight.innerHTML = ">>";
+				showRight.style.display = "block";
 			}
 			showRight.onclick = function(){
 				clickKanan();
 			};
-			showLeft.onclick = function() {
+			/*showLeft.onclick = function() {
 				classie.toggle( showLeft, 'active' );
 				classie.toggle( btnMenu, 'active' );
 				classie.toggle( menuLeft, 'cbp-spmenu-open' );
@@ -218,15 +227,11 @@
 	         })(marker, contentInfo));*/
 	           google.maps.event.addListener(marker, 'mouseover', (function(marker, contentInfo) {
 	               return function() {
-	                 /*infowindow.setContent(contentInfo);
-	                 infowindow.open(imaps.map, marker);*/
 	                 infobox.open(imaps.map, marker);
 	               }
 	         })(marker, contentInfo));
 	            google.maps.event.addListener(marker, 'mouseout', (function(marker, contentInfo) {
 	               return function() {
-	                 /*infowindow.setContent(contentInfo);
-	                 infowindow.open(imaps.map, marker);*/
 	                 infobox.close();
 	               }
 	         })(marker, contentInfo));
@@ -376,6 +381,7 @@
 				//dialek
 				$('#listDialek').html(strcontent2);
 				$('#bodyDialek').show();
+				showKanan();
 			}
 			function searchBahasabyId(idb){
 				var retval;
@@ -409,6 +415,7 @@
 				$('#bodyDialek').show();
 				//marker
 				showMarker(searchBahasabyId([idBahasa]));
+				showKanan();
 			}
 			function getEventInfo(idBahasa){
 				var retval = new Array();
@@ -541,11 +548,6 @@
 				alert(str);
 
 			}
-			
-			// Fungsi untuk nyari padanan kata dari suatu kata dengan provinsinya
-			// alert(getPadananFromKataInProvince("makan", "Banten"));
-			// Fungsi untuk dapetin dialek dari bahasa
-			// alert(getDialekFromIdBahasa(1));
 			
 			google.maps.event.addDomListener(window, 'load', initialize);
 		</script>
