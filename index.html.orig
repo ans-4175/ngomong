@@ -106,6 +106,7 @@
 		<script src="js/data_kata.json"></script>
 		<script src="js/data_padanan.json"></script>
 		<script src="js/data_area.json"></script>
+		<script src="js/data_subarea.json"></script>
 		<script src="js/data_mapping_area.json"></script>
 		<script>
 			var provinces = new Array();
@@ -143,6 +144,7 @@
 				else
 					this.innerHTML = "Lihat Menu";
 			};*/
+
 			function initialize() {
 			  var myLatlng = new google.maps.LatLng(-1.269160, 113.125264);
 			  var mapOptions = {
@@ -169,7 +171,6 @@
 			  $('#selCariBahasa').html(strcontent2+strcontent);
 			};
 <<<<<<< HEAD
-=======
 			function clearMarker(){
 				while(imaps.listmarkers.length!=0){
 					var p = imaps.listmarkers[0];
@@ -185,10 +186,17 @@
 				};				
 			}
 			function showArea(areaName){
+				var id_areaName;
 				clearLayer();
 				for (key in data_area){
 					if(data_area[key][1] == areaName){
 						addLayer(data_area[key][1], data_area[key][3]);
+						id_areaName = data_area[key][0];
+					}
+				}
+				for (temp in data_subarea){
+					if(data_subarea[temp][2] == id_areaName){
+						addLayer(data_subarea[temp][1], data_subarea[temp][3]);
 					}
 				}		
 			}
@@ -209,33 +217,11 @@
 					map: imaps.map,
 					name:pName
 				  });
-				  
-				  var contentInfo = '<div class="provinsi"><p>Provinsi : '+kmlLayer.name+'</p>';
-	        	  var infobox = new InfoBox({
-					 content: contentInfo,
-					 disableAutoPan: false,
-					 maxWidth: 130,
-					 pixelOffset: new google.maps.Size(-100, 0),
-					 zIndex: null,
-					 
-					 boxStyle: {
-						opacity: 0.9
-					},
-					closeBoxMargin: "12px 4px 2px 2px",
-					/*closeBoxURL: "http://www.google.com/intl/en_us/mapfiles/close.gif",*/
-					closeBoxURL: "",
-					infoBoxClearance: new google.maps.Size(1, 1)
-				});
 
 				  provinces.push(kmlLayer);
 				  google.maps.event.addListener(kmlLayer, 'click', function(kmlEvent) {
 					alert(kmlLayer.name);
 				  });
-				  /*google.maps.event.addListener(kmlLayer, 'click', (function(kmlLayer, contentInfo) {
-					  return function() {
-						 infobox.open(imaps.map, kmlLayer);
-					  }
-				 })(kmlLayer, contentInfo));*/
 				
 			}
 			function removeLayer(name){
@@ -492,7 +478,8 @@
 				alert(str);
 
 			}
->>>>>>> f022dee4854825753c77f2889696218c0e0d32ff
+=======
+>>>>>>> 12535a0890ebb62bf98dedb1600cd03f0fd72249
 			
 			google.maps.event.addDomListener(window, 'load', initialize);
 		</script>
