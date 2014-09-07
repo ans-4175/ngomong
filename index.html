@@ -223,6 +223,10 @@
 			  	strcontent += '<option>'+data_area[i][1]+'</option>';
 			  }
 			  $('#selProvinsi').html(strcontent);
+			  //marker_bahasa
+			  for (key in data_bahasa){
+			  	showMarker(data_bahasa[key]);
+			  }
 			};
 			function clearMarker(){
 				while(imaps.listmarkers.length!=0){
