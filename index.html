@@ -32,12 +32,6 @@
 				</div-->
 				<select class="form-control" id="selProvinsi">
 				  <option>Semua Provinsi</option>
-				  <!--option>Banten</option>
-				  <option>Jakarta</option>
-				  <option>Jawa Barat</option>
-				  <option>Jawa Tengah</option>
-				  <option>Yogyakarta</option>
-				  <option>Jawa Timur</option-->
 				</select>
 				<h3>Kondisi :</h3>
 			    <div class="radio">
@@ -91,8 +85,10 @@
 			  <div class="panel-heading pointer" onclick="$('#bodyTranslasi').slideToggle()">Translasi Kata</div>
 			  <div class="panel-body" id="bodyTranslasi">
 			    <div class="form-group">
-				    <label for="translasi-kata">Masukkan kata</label>
-					<input type="text" class="form-control" id="translasi-kata" name="translasi-kata" placeholder="kata yang ingin dicari">
+				    <label for="translasi-kata">Masukkan kata:</label>
+					<input type="text" class="form-control" id="translasi-kata" name="translasi-kata" placeholder="kata dalam Indonesia">
+					<label for="selBahasa">Pilih Bahasa:</label>
+					<select class="form-control" id="selBahasa"></select>
 					<button  type="button" class="btn btn-success btn-sm btnTranslasi" onClick="translasi();" id="btnTranslasi">Translasi !</button>
 				</div>
 			  </div>
@@ -224,9 +220,12 @@
 			  }
 			  $('#selProvinsi').html(strcontent);
 			  //marker_bahasa
+			  strcontent = '';
 			  for (key in data_bahasa){
 			  	showMarker(data_bahasa[key]);
+			  	strcontent += '<option>'+data_bahasa[key][1]+'</option>';
 			  }
+			  $('#selBahasa').html(strcontent);
 			};
 			function clearMarker(){
 				while(imaps.listmarkers.length!=0){
@@ -433,6 +432,29 @@
 				}				
 				return retval;			
 			}
+			function getIdBahasa(namaB){
+				var retval;
+				for (key in data_bahasa){
+					if (data_bahasa[key][1]==namaB){
+						retval=data_bahasa[key][0];
+						break;
+					}
+				}
+				
+				return retval;
+			}
+			function getPadananFromKataInBahasa(kata, namaBahasa){
+				var retval = new Array();
+				var idKata = getIdKata(kata);
+				var idBahasa = getIdBahasa(namaBahasa);
+				for (key in data_padanan){
+					if(data_padanan[key][2] == idBahasa && data_padanan[key][1] == idKata){
+						retval.push(new Array(getBahasaFromIdBahasa(data_padanan[key][2]), data_padanan[key][3]));
+					}
+				}				
+				//console.log(retval);
+				return retval;							
+			}
 			function getPadananFromKataInProvince(kata, namaProvince){
 				var idKata = getIdKata(kata);
 				var idProvince = getIdProvince(namaProvince);
@@ -474,7 +496,15 @@
 				return bahasa;			
 			}
 			function translasi(){
-				alert(getPadananFromKataInProvince(document.getElementById('translasi-kata').value, document.getElementById('selProvinsi').value));
+				var transkata = document.getElementById('translasi-kata').value;
+				var bahasa = document.getElementById('selBahasa').value;
+				var listKata = getPadananFromKataInBahasa(transkata, bahasa);
+				var str = transkata+' ('+bahasa+'):';
+				for (key in listKata){
+					str += '\n'+listKata[key][1];
+				}
+				alert(str);
+
 			}
 			
 			// Fungsi untuk nyari padanan kata dari suatu kata dengan provinsinya
