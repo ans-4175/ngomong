@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html class=" js " lang="en">
+	<head>
+		<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+		<meta charset="UTF-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"> 
+		<meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+		<title>Peta Bahasa</title>
+		<meta name="description" content="Peta Bahasa">
+		<meta name="keywords" content="bahasa">
+		<meta name="author" content="Codrops">
+		<!--link rel="shortcut icon" href="http://tympanus.net/Blueprints/favicon.ico"-->
+		<link rel="stylesheet" type="text/css" href="css/default.css">
+		<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+		<link rel="stylesheet" type="text/css" href="css/bootstrap-theme.min.css">
+		<script src="js/modernizr.js"></script>
+		<script src="https://maps.googleapis.com/maps/api/js?v=3.exp"></script>
+		<script type="text/javascript" src="http://google-maps-utility-library-v3.googlecode.com/svn/trunk/infobox/src/infobox.js"></script>
+	</head>
+	<body>
+		<nav class="cbp-spmenu cbp-spmenu-vertical cbp-spmenu-right" id="cbp-spmenu-s2">
+			<div class="panel panel-default">
+			  <div class="panel-heading pointer" onclick="$('#bodyBahasa').slideToggle()">Bahasa</div>
+			  <div class="panel-body panelmenu" id="bodyBahasa">
+			    <ul class="panelBahasaDialek" id="listBahasa">
+					<li>Bahasa 1</li>
+				</ul>
+			  </div>
+			</div>
+			<div class="panel panel-default">
+			  <div class="panel-heading pointer" onclick="$('#bodyDialek').slideToggle()">Dialek</div>
+			  <div class="panel-body panelmenu" id="bodyDialek">
+			    <ul class="panelBahasaDialek" id="listDialek">
+					<li>Dialek 1</li>
+				</ul>
+			  </div>
+			</div>
+			<div class="panel panel-default">
+			  <div class="panel-heading pointer" onclick="$('#bodyEvent').slideToggle()">Event</div>
+			  <div class="panel-body panelmenu" id="bodyEvent">
+			    <ul class="panelBahasaDialek" id="listEvent">
+					<li>Event 1</li>
+				</ul>
+			  </div>
+			</div>
+		</nav>
+		<nav class="cbp-spmenu-open cbp-spmenu cbp-spmenu-vertical cbp-spmenu-left" id="cbp-spmenu-s1">
+			<div class="judul-peta"><span style="color:#e74c3c">Peta</span> <span style="color:#ecf0f1">Bahasa</span></div>
+			<div class="panel panel-default">
+			  <div class="panel-heading pointer" onclick="$('#bodyCari').slideToggle()">Pencarian</div>
+			  <div class="panel-body" id="bodyCari">
+				<label for="selProvinsi">Pilih Provinsi:</label>
+				<select class="form-control" id="selProvinsi">
+				  <option>Semua Provinsi</option>
+				</select>
+				<label for="selVitalitas">Vitalitas Bahasa:</label>
+				<select class="form-control" id="selVitalitas">
+				  <option>Semua</option>
+				  <option>Aktif</option>
+				  <option>Vulnerable</option>
+				  <option>Definitely endangered</option>
+				  <option>Severely endangered</option>
+				  <option>Critically endangered</option>
+				  <option>Extinct</option>
+				</select>
+				<br />
+				<button type="button" class="btn btn-primary" id="btnSeleksi" onclick="changeFilter()">Cari !</button>
+				<br /><br /><br />
+				<label for="selCariBahasa">Pilih Bahasa:</label>
+				<select class="form-control" id="selCariBahasa">
+				  <option>Semua Bahasa</option>
+				</select>
+				<br />
+				<button type="button" class="btn btn-primary" id="btnSeleksi2" onclick="changeFilter2()">Cari !</button>
+			  </div>
+			</div>
+			<div class="panel panel-default">
+			  <div class="panel-heading pointer" onclick="$('#bodyTranslasi').slideToggle()">Translasi Kata</div>
+			  <div class="panel-body" id="bodyTranslasi">
+			    <div class="form-group">
+				    <label for="translasi-kata">Masukkan kata:</label>
+					<input type="text" class="form-control" id="translasi-kata" name="translasi-kata" placeholder="kata dalam Indonesia">
+					<label for="selBahasa">Pilih Bahasa:</label>
+					<select class="form-control" id="selBahasa"></select>
+					<button  type="button" class="btn btn-success btn-sm btnTranslasi" onClick="translasi();" id="btnTranslasi">Translasi !</button>
+				</div>
+			  </div>
+			</div>
+		</nav>
+		<div class="main-map" id="main-map"><!--PETA GMAP--></div>
+		<!--section id="btnMenu">
+			<button class="" id="showLeft">Lihat Menu</button>
+		</section-->
+		<section id="btnEvent">
+			<button class="" id="showRight">&gt;&gt;</button>
+		</section>
+		<!-- Classie - class helper functions by @desandro https://github.com/desandro/classie -->
+		<script src="js/classie.js"></script>
+		<script src="js/jquery-1.11.1.min.js"></script>
+		<script src="js/bootstrap.min.js"></script>
+		<script src="js/functions.js"></script>
+		<!--data json-->
+		<script src="js/data_bahasa.json"></script>
+		<script src="js/data_event.json"></script>
+		<script src="js/data_dialek.json"></script>
+		<script src="js/data_kata.json"></script>
+		<script src="js/data_padanan.json"></script>
+		<script src="js/data_area.json"></script>
+		<script src="js/data_mapping_area.json"></script>
+		<script>
+			var provinces = new Array();
+			var imaps = {map:null,listmarkers:[],listinfo:[]};
+			var menuLeft = document.getElementById( 'cbp-spmenu-s1' ),
+				menuRight = document.getElementById( 'cbp-spmenu-s2' ),
+				showLeft = document.getElementById( 'showLeft' ),
+				showRight = document.getElementById( 'showRight' ),
+				btnMenu = document.getElementById( 'btnMenu' ),
+				btnEvent = document.getElementById( 'btnEvent' ),
+				body = document.body;
+			function clickKanan(){
+				classie.toggle(menuRight, 'cbp-spmenu-open' );
+				classie.toggle( showRight, 'active' );
+				classie.toggle( btnEvent, 'active' );
+				showRight.style.display = "none";
+				if (classie.has( showRight, 'active' ))
+					showRight.style.display = "none";
+			};
+			function showKanan(){
+				classie.add(menuRight, 'cbp-spmenu-open' );
+				classie.add( showRight, 'active' );
+				classie.add( btnEvent, 'active' );
+				showRight.style.display = "block";
+			}
+			showRight.onclick = function(){
+				clickKanan();
+			};
+			/*showLeft.onclick = function() {
+				classie.toggle( showLeft, 'active' );
+				classie.toggle( btnMenu, 'active' );
+				classie.toggle( menuLeft, 'cbp-spmenu-open' );
+				if (classie.has( showLeft, 'active' ))
+					this.innerHTML = "<<";
+				else
+					this.innerHTML = "Lihat Menu";
+			};*/
+			function initialize() {
+			  var myLatlng = new google.maps.LatLng(-1.269160, 113.125264);
+			  var mapOptions = {
+			    zoom: 5,
+			    center: myLatlng,
+			    mapTypeId: google.maps.MapTypeId.TERRAIN
+			  };
+			  imaps.map = new google.maps.Map(document.getElementById('main-map'),
+			      mapOptions);
+			  //data provinsi
+			  var strcontent = $('#selProvinsi').html();
+			  var strcontent2 = $('#selCariBahasa').html();
+			  for (var i=0; i<34; i++){
+			  	strcontent += '<option>'+data_area[i][1]+'</option>';
+			  }
+			  $('#selProvinsi').html(strcontent);
+			  //marker_bahasa
+			  strcontent = '';
+			  for (key in data_bahasa){
+			  	showMarker(data_bahasa[key]);
+			  	strcontent += '<option>'+data_bahasa[key][1]+'</option>';
+			  }
+			  $('#selBahasa').html(strcontent);
+			  $('#selCariBahasa').html(strcontent2+strcontent);
+			};
+<<<<<<< HEAD
+=======
+			function clearMarker(){
+				while(imaps.listmarkers.length!=0){
+					var p = imaps.listmarkers[0];
+					p.setMap(null);
+					imaps.listmarkers.splice(0, 1);
+				};				
+			}
+			function clearLayer(){
+				while(provinces.length!=0){
+					var p = provinces[0];
+					p.setMap(null);
+					provinces.splice(0, 1);
+				};				
+			}
+			function showArea(areaName){
+				clearLayer();
+				for (key in data_area){
+					if(data_area[key][1] == areaName){
+						addLayer(data_area[key][1], data_area[key][3]);
+					}
+				}		
+			}
+			function showMultiArea(listArea){
+				clearLayer();
+				for (list in listArea){
+					for (key in data_area){
+						if(data_area[key][1] == listArea[list]){
+							addLayer(data_area[key][1], data_area[key][3]);
+						}
+					}
+				}
+			}
+			function addLayer(pName, location){
+				  var kmlLayer = new google.maps.KmlLayer({
+					url: location,
+					suppressInfoWindows: true,
+					map: imaps.map,
+					name:pName
+				  });
+				  
+				  var contentInfo = '<div class="provinsi"><p>Provinsi : '+kmlLayer.name+'</p>';
+	        	  var infobox = new InfoBox({
+					 content: contentInfo,
+					 disableAutoPan: false,
+					 maxWidth: 130,
+					 pixelOffset: new google.maps.Size(-100, 0),
+					 zIndex: null,
+					 
+					 boxStyle: {
+						opacity: 0.9
+					},
+					closeBoxMargin: "12px 4px 2px 2px",
+					/*closeBoxURL: "http://www.google.com/intl/en_us/mapfiles/close.gif",*/
+					closeBoxURL: "",
+					infoBoxClearance: new google.maps.Size(1, 1)
+				});
+
+				  provinces.push(kmlLayer);
+				  google.maps.event.addListener(kmlLayer, 'click', function(kmlEvent) {
+					alert(kmlLayer.name);
+				  });
+				  /*google.maps.event.addListener(kmlLayer, 'click', (function(kmlLayer, contentInfo) {
+					  return function() {
+						 infobox.open(imaps.map, kmlLayer);
+					  }
+				 })(kmlLayer, contentInfo));*/
+				
+			}
+			function removeLayer(name){
+				for(var i=0;i<provinces.length;i++){
+					if(provinces[i].name == name){
+						var p = provinces[i];
+						p.setMap(null);
+						provinces.splice(i, 1);
+						break;
+					}
+				};		
+			}			
+			function changeFilter(){
+				var provVal = document.getElementById("selProvinsi").value;
+				var bhsVal = document.getElementById("selCariBahasa").value;
+				var vitVal = document.getElementById("selVitalitas").value;
+				var optVal = $('input[name="optionsRadios"]:checked').val();
+				var pasang = false;
+				//show area
+				showArea(provVal);
+				clearMarker();
+				$("#bodyEvent").hide();
+				//show bahasa list
+				var strcontent = ''; var strcontent2 = '';
+				var listBhs = new Array();
+				if (provVal == 'Semua Provinsi') {
+					for (keys in data_bahasa){
+						listBhs.push(data_bahasa[keys][0]);
+					}
+				}else{
+					listBhs = getBahasaFromProvince(document.getElementById("selProvinsi").value);
+				}
+				for (key in listBhs){
+					for (key2 in data_bahasa){
+						if (optVal == 'opt1'){
+							pasang = true;
+						}else if (optVal == 'opt2'){
+							switch (data_bahasa[key2][2]){
+								case 'Vulnerable' :
+								case 'Definitely endangered' :
+								case 'Severely endangered' :
+								case 'Critically endangered' :
+								case 'Extinct' :
+									pasang = true;
+									break;
+								default:
+									pasang = false;
+									break;
+							}
+						}else if (optVal == 'opt3'){
+							switch (data_bahasa[key2][2]){
+								case 'Vulnerable' :
+								case 'Definitely endangered' :
+								case 'Severely endangered' :
+								case 'Critically endangered' :
+								case 'Extinct' :
+									pasang = false;
+									break;
+								default:
+									pasang = true;
+									break;
+							}
+						}
+						if((data_bahasa[key2][0] == listBhs[key]) && pasang){
+							showMarker(data_bahasa[key2]);
+							strcontent += '<li onclick="detailIdBahasa('+data_bahasa[key2][0]+')">'+data_bahasa[key2][1]+'</li>';
+							//show dialek
+							var listDialek = getDialekFromIdBahasa(data_bahasa[key2][0]);
+							for (key3 in listDialek){
+								strcontent2 += '<li>'+listDialek[key3][1]+'</li>';
+							}
+						}
+					}
+				}
+				//bahasa
+				$('#listBahasa').html(strcontent);
+				$('#bodyBahasa').show();
+				//dialek
+				$('#listDialek').html(strcontent2);
+				$('#bodyDialek').show();
+				showKanan();
+			}
+			function searchBahasabyId(idb){
+				var retval;
+				for (key in data_bahasa){
+					if (data_bahasa[key][0]==idb){
+						retval=data_bahasa[key];
+						break;
+					}
+				}
+				
+				return retval;
+			}
+			function detailIdBahasa(idBahasa){
+				clearMarker();
+				setAreaFromIdBahasa(idBahasa);
+				//event
+				var strcontent = ''; var strcontent2 = '';
+				var listEvent = getEventInfo(idBahasa);
+				//console.log(listEvent[0]);
+				for (key in listEvent){
+					strcontent += '<li>'+listEvent[key][4]+' '+listEvent[key][5]+' di '+listEvent[key][1]+', '+listEvent[key][3]+' "'+listEvent[key][2]+'"</li>';
+				}
+				$('#listEvent').html(strcontent);
+				$('#bodyEvent').show();
+				//dialek
+				var listDialek = getDialekFromIdBahasa(idBahasa);
+				for (key in listDialek){
+					strcontent2 += '<li>'+listDialek[key][1]+'</li>';
+				}
+				$('#listDialek').html(strcontent2);
+				$('#bodyDialek').show();
+				//marker
+				showMarker(searchBahasabyId([idBahasa]));
+				showKanan();
+			}
+			function getEventInfo(idBahasa){
+				var retval = new Array();
+				for (key in data_event){
+					if(data_event[key][7] == idBahasa){
+						retval.push(data_event[key]);
+					}
+				}						
+
+				return retval;
+			}
+			function setAreaFromIdBahasa(idBahasa){
+				var retval = new Array();
+				for (key in data_area_mapping){
+					if(data_area_mapping[key][0] == idBahasa){
+						retval.push(data_area_mapping[key][1]);
+					}
+				}
+				//console.log(retval);
+				var listArea = new Array();
+				for (key in retval){
+					for (area in data_area){
+						if(retval[key] == data_area[area][0]){
+							listArea.push(data_area[area][1]);
+						}
+					}
+				}
+				showMultiArea(listArea);
+			}
+			function getIdProvince(namaProvince){
+				var idProvince;
+				for (area in data_area){
+					if(namaProvince == data_area[area][1]){
+						idProvince = data_area[area][0];
+						break;
+					}
+				}
+				return idProvince;
+			}
+			function genListBahasa(namaProvince){
+				var listB = getBahasaFromProvince(namaProvince);
+				var str = '';
+				for (key in listB){
+					var bhs = searchBahasabyId(listB[key]);
+					str += '<option>'+bhs[1]+'</option>';
+				}
+				$('#selCariBahasa').html(str);
+			}
+			function getBahasaFromProvince(namaProvince){
+				var idProvince = getIdProvince(namaProvince);
+				var retval = new Array();
+				for (key in data_area_mapping){
+					if(data_area_mapping[key][1] == idProvince){
+						retval.push(data_area_mapping[key][0]);
+					}
+				}				
+				return retval;
+			}
+			function getDialekFromIdBahasa(idBahasa){
+				var retval = new Array();
+				for (key in data_dialek){
+					if(data_dialek[key][8] == idBahasa){
+						retval.push(data_dialek[key]);
+					}
+				}				
+				return retval;			
+			}
+			function getIdBahasa(namaB){
+				var retval;
+				for (key in data_bahasa){
+					if (data_bahasa[key][1]==namaB){
+						retval=data_bahasa[key][0];
+						break;
+					}
+				}
+				
+				return retval;
+			}
+			function getPadananFromKataInBahasa(kata, namaBahasa){
+				var retval = new Array();
+				var idKata = getIdKata(kata);
+				var idBahasa = getIdBahasa(namaBahasa);
+				for (key in data_padanan){
+					if(data_padanan[key][2] == idBahasa && data_padanan[key][1] == idKata){
+						retval.push(new Array(getBahasaFromIdBahasa(data_padanan[key][2]), data_padanan[key][3]));
+					}
+				}				
+				//console.log(retval);
+				return retval;							
+			}
+			function getPadananFromKataInProvince(kata, namaProvince){
+				var idKata = getIdKata(kata);
+				var idProvince = getIdProvince(namaProvince);
+				var listIdBahasa = getListBahasaFromProvince(idProvince);
+				var retval = new Array();
+				for (key in data_padanan){
+					for (key2 in listIdBahasa){
+						if(data_padanan[key][2] == listIdBahasa[key2][0] && data_padanan[key][1] == idKata){
+							retval.push(new Array(getBahasaFromIdBahasa(data_padanan[key][2]), data_padanan[key][3]));
+						}
+					}
+				}				
+				return retval;							
+			}
+			function getIdKata(kata){
+				for (key in data_kata){
+					if(kata.toLowerCase() == data_kata[key][1].toLowerCase()){
+						return data_kata[key][0];
+					}
+				}
+			}
+			function getListBahasaFromProvince(idProvince){
+				var retval = new Array();
+				for (key in data_area_mapping){
+					if(data_area_mapping[key][1] == idProvince){
+						retval.push(data_area_mapping[key]);
+					}
+				}				
+				return retval;				
+			}
+			function getBahasaFromIdBahasa(idBahasa){
+				var bahasa;
+				for (key in data_bahasa){
+					if(idBahasa == data_bahasa[key][0]){
+						bahasa = data_bahasa[key][1];
+						break;
+					}
+				}
+				return bahasa;			
+			}
+			function translasi(){
+				var transkata = document.getElementById('translasi-kata').value;
+				var bahasa = document.getElementById('selBahasa').value;
+				var listKata = getPadananFromKataInBahasa(transkata, bahasa);
+				var str = transkata+' ('+bahasa+'):';
+				for (key in listKata){
+					str += '\n'+listKata[key][1];
+				}
+				alert(str);
+
+			}
+>>>>>>> f022dee4854825753c77f2889696218c0e0d32ff
+			
+			google.maps.event.addDomListener(window, 'load', initialize);
+		</script>
+	</body>
+</html>
