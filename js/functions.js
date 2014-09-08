@@ -135,6 +135,8 @@ function addLayer(pName, location){
 		url: location,
 		suppressInfoWindows: true,
 		map: imaps.map,
+		/*preserveViewport: false,
+		screenOverlays: false,*/
 		name:pName
 	  });
 
